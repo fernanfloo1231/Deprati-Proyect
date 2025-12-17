@@ -1,0 +1,44 @@
+<div class="detalle-container" *ngIf="!loading && pedido">
+  <h2 class="titulo">📄 Detalle del Pedido #{{ pedido.id_pedido }}</h2>
+  <p class="fecha">{{ pedido.fecha_pedido | date : 'dd/MM/yyyy HH:mm' }}</p>
+
+  <div class="detalle-card">
+    <section>
+      <section>
+        <h3>🛍 Productos</h3>
+
+        <div class="producto" *ngFor="let p of pedido.productos">
+          <div class="producto-info">
+            <strong>{{ p.nombre }}</strong
+            ><br />
+            Cantidad: <strong>{{ p.cantidad }}</strong
+            ><br />
+            Precio unitario: <strong>${{ p.precio_unitario }}</strong
+            ><br />
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <hr />
+
+    <section>
+      <h3>💵 Resumen</h3>
+      <p><strong>Total:</strong> ${{ pedido.total }}</p>
+      <p><strong>Método de pago:</strong> {{ pedido.metodo_pago }}</p>
+    </section>
+
+    <hr />
+
+    <section>
+      <h3>📦 Dirección de entrega</h3>
+      <p>{{ pedido.direccion_entrega }}</p>
+    </section>
+  </div>
+</div>
+
+<div *ngIf="loading" class="cargando">Cargando detalles...</div>
+
+<div *ngIf="error && !loading" class="error">
+  {{ error }}
+</div>

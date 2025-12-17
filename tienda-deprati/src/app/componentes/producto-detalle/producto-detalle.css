@@ -1,0 +1,149 @@
+.volver-link {
+  display: inline-block;
+  margin-left: 3rem;
+  margin-top: 1rem;
+  color: #c91f27;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.detalle-card {
+  width: 90%;
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 18px;
+  display: flex;
+  gap: 2rem;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.detalle-img-box {
+  width: 45%;
+  background: #f8f8f8;
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.detalle-img {
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+}
+
+.detalle-info {
+  width: 55%;
+}
+
+.detalle-nombre {
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #333;
+}
+
+.detalle-marca {
+  font-size: 1.2rem;
+  color: #777;
+  margin-top: -5px;
+}
+
+.detalle-precios {
+  margin: 1rem 0;
+  display: flex;
+  gap: 1rem;
+  align-items: baseline;
+}
+
+.precio-actual {
+  color: #c91f27;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.precio-original {
+  color: #999;
+  text-decoration: line-through;
+  font-size: 1.1rem;
+}
+
+.detalle-descripcion {
+  margin: 1rem 0 2rem;
+  font-size: 1rem;
+  color: #555;
+}
+
+.detalle-botones {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.btn-elegante {
+  padding: 0.9rem 1.5rem;
+  border-radius: 50px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  cursor: pointer;
+  border: none;
+  transition: 0.25s;
+}
+
+.btn-carrito-elegante {
+  background: #c91f27;
+  color: white;
+  border: 2px solid #c91f27;
+}
+
+.btn-carrito-elegante:hover {
+  background: white;
+  color: #c91f27;
+}
+
+.cantidad-box button {
+  width: 36px;
+  height: 36px;
+  font-size: 22px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e0e0e0;
+  transition: 0.3s;
+}
+
+.cantidad-box button:hover:not(:disabled) {
+  background: #cacaca;
+}
+
+.cantidad-box button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.cantidad-num {
+  width: 40px;
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.btn-detalle-elegante {
+  background: white;
+  border: 2px solid #555;
+  color: #555;
+}
+
+.btn-detalle-elegante:hover {
+  background: #555;
+  color: white;
+}
+
+.icono img {
+  width: 22px;
+  height: 22px;
+}

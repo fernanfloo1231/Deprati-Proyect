@@ -1,0 +1,320 @@
+<div class="admin-wrap">
+  <h2>Panel de administración</h2>
+
+  <!-- PANEL LOGIN ADMIN -->
+  <div *ngIf="!loggedIn" class="admin-login-wrapper">
+    <div class="admin-login-card">
+      <!-- Decoración esquinas -->
+      <span class="corner top-left"></span>
+      <span class="corner top-right"></span>
+      <span class="corner bottom-left"></span>
+      <span class="corner bottom-right"></span>
+
+      <div class="scanline"></div>
+
+      <h3 class="admin-title">
+        <span class="prompt">➜</span>
+        ADMIN_ACCESS
+        <span class="cursor">▋</span>
+      </h3>
+
+      <!-- USUARIO -->
+      <label class="admin-label">Usuario</label>
+      <div class="input-group">
+        <input
+          type="text"
+          placeholder="➤ ENTER USER"
+          [value]="userField"
+          (input)="userField = $any($event.target).value"
+        />
+      </div>
+
+      <!-- CONTRASEÑA -->
+      <label class="admin-label">Contraseña</label>
+      <div class="input-group">
+        <input
+          type="password"
+          placeholder="➤ ENTER PASSWORD"
+          [value]="passField"
+          (input)="passField = $any($event.target).value"
+        />
+        <span class="lock-icon">🔒</span>
+      </div>
+
+      <!-- BOTÓN -->
+      <button class="admin-btn" (click)="login()">ACCEDER</button>
+
+      <!-- WARNING -->
+      <p class="admin-warning">
+        <span class="dot"></span>
+        <strong>WARNING:</strong> For users with administrative privileges only.
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="loggedIn" class="admin-card">
+    <div class="topbar">
+      <div>
+        Conectado como <strong>{{ auth.getCurrentAdmin()?.usuario || 'admin' }}</strong>
+      </div>
+      <div class="top-actions">
+        <button (click)="logout()">Cerrar sesión</button>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'productos'"
+        (click)="cambiarTab('productos')"
+      >
+        <img src="img/productos.png" alt="Productos" />
+        <span>Productos</span>
+      </button>
+
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'pedidos'"
+        (click)="cambiarTab('pedidos')"
+      >
+        <img src="img/hacer-un-pedido.png" alt="Pedidos" />
+        <span>Pedidos</span>
+      </button>
+
+      <button
+        class="tab-btn"
+        [class.active]="activeTab === 'estadisticas'"
+        (click)="abrirEstadisticas()"
+      >
+        <img src="img/tendencia.png" alt="Estadísticas" />
+        <span>Estadísticas</span>
+      </button>
+    </div>
+
+    <div *ngIf="activeTab === 'productos'" class="tab-body">
+      <h3>Agregar / Modificar producto</h3>
+      <div class="form-grid">
+        <div>
+          <label>Nombre</label>
+          <input
+            type="text"
+            [value]="form.nombre || ''"
+            (input)="form.nombre = $any($event.target).value"
+          />
+        </div>
+        <div>
+          <label>Precio</label>
+          <input
+            type="number"
+            step="0.01"
+            [value]="form.precio || ''"
+            (input)="form.precio = $any($event.target).value"
+          />
+        </div>
+        <div>
+          <label>Stock</label>
+          <input
+            type="number"
+            min="0"
+            [value]="form.stock || 0"
+            (input)="form.stock = $any($event.target).value"
+          />
+        </div>
+        <div>
+          <label>Categoría</label>
+          <select
+            [value]="form.categoria || ''"
+            (change)="form.categoria = $any($event.target).value"
+          >
+            <option value="">-- elegir --</option>
+            <option *ngFor="let c of categorias" [value]="c">{{ c }}</option>
+          </select>
+        </div>
+        <div>
+          <label>Descuento (%)</label>
+          <input
+            type="number"
+            min="0"
+            max="100"
+            [value]="form.descuento || 0"
+            (input)="form.descuento = $any($event.target).value"
+          />
+        </div>
+        <div>
+          <label>Marca</label>
+          <input
+            type="text"
+            [value]="form.marca || ''"
+            (input)="form.marca = $any($event.target).value"
+          />
+        </div>
+        <div class="full">
+          <label>Descripción</label>
+          <textarea
+            [value]="form.descripcion || ''"
+            (input)="form.descripcion = $any($event.target).value"
+          ></textarea>
+        </div>
+        <div>
+          <label>Imagen del producto</label>
+          <!-- Selector de archivo -->
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onImageSelected($event)"
+            class="file-input"
+          />
+          <!-- Estado: Sin archivo seleccionado -->
+          <div *ngIf="!form.imagenNombre && !form.imagen_url" class="no-file">
+            <p>No se ha seleccionado ningún archivo</p>
+          </div>
+
+          <!-- Estado: Archivo seleccionado PERO NO subido -->
+          <div
+            *ngIf="form.imagenNombre && form.imagenFile && !form.imagen_url"
+            class="preview-section"
+          >
+            <div class="preview">
+              <img
+                [src]="form.imagenPreview || 'img/imagenplaceholder.jpg'"
+                [alt]="form.imagenNombre"
+                (error)="onImageError($event)"
+              />
+            </div>
+            <div class="file-info">
+              <p><strong>Archivo seleccionado:</strong> {{ form.imagenNombre }}</p>
+              <p><strong>Estado:</strong> <span class="status-pending">Pendiente de subir</span></p>
+            </div>
+          </div>
+
+          <!-- Estado: Imagen SUBIDA y guardada -->
+          <div *ngIf="form.imagen_url" class="preview-section">
+            <div class="preview">
+              <img
+                [src]="getImagenUrl(form.imagen_url)"
+                [alt]="form.imagenNombre || 'Imagen del producto'"
+                (error)="onImageError($event)"
+              />
+            </div>
+            <div class="file-info">
+              <p><strong>Archivo guardado:</strong> {{ form.imagenNombre || 'Sin nombre' }}</p>
+              <p><strong>URL:</strong> {{ form.imagen_url }}</p>
+              <p>
+                <strong>Estado:</strong>
+                <span class="status-current"> Imagen subida exitosamente</span>
+              </p>
+            </div>
+          </div>
+          <small>Formatos permitidos: JPG, PNG, GIF, WEBP. Máximo 5MB.</small>
+        </div>
+      </div>
+      <div class="actions">
+        <button (click)="addOrUpdateProducto()">
+          {{ editingIndex == null ? 'Agregar producto' : 'Actualizar producto' }}
+        </button>
+        <button (click)="form = {}; editingIndex = null">Limpiar</button>
+      </div>
+      <hr />
+      <h3>Productos existentes ({{ productos.length }})</h3>
+      <div class="productos-list">
+        <div *ngFor="let p of productos; let i = index" class="producto">
+          <img
+            *ngIf="p.imagen_url"
+            [src]="getImagenUrl(p.imagen_url)"
+            [alt]="p.nombre"
+            (error)="onImageError($event)"
+          />
+          <div class="meta">
+            <h4>{{ p.nombre }}</h4>
+            <p class="cat">{{ p.categoria }} | {{ p.marca }}</p>
+            <p class="desc">{{ p.descripcion }}</p>
+            <p class="precio">
+              Precio: ${{ p.precio }}
+              <!--  p es ProductoLocal, tiene propiedad descuento -->
+              <span *ngIf="p.descuento && p.descuento > 0">
+                → ${{ precioConDescuento(p) }} ({{ p.descuento }}% off)
+              </span>
+            </p>
+            <p class="stock">Stock: {{ p.stock }} unidades</p>
+          </div>
+          <div class="prod-actions">
+            <button (click)="editarProducto(i)">Editar</button>
+            <button (click)="eliminarProducto(i)">Eliminar</button>
+            <div class="quick-discounts">
+              <button (click)="aplicarDescuento(i, 10)">-10%</button>
+              <button (click)="aplicarDescuento(i, 20)">-20%</button>
+              <button (click)="aplicarDescuento(i, 50)">-50%</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="activeTab === 'estadisticas'" class="tab-body">
+      <h3>📊 Estadísticas del sistema</h3>
+
+      <div class="stats-grid">
+        <div class="stat-card highlight">
+          <div class="stat-header">
+            <span>📈</span>
+            <h4>Ventas por día</h4>
+          </div>
+          <canvas id="ventasChart"></canvas>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-header">
+            <span>🏆</span>
+            <h4>Top productos más vendidos</h4>
+          </div>
+          <canvas id="productosChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="activeTab === 'pedidos'" class="tab-body">
+      <h3>Pedidos</h3>
+
+      <div class="pedidos-wrap">
+        <!-- LISTA DE PEDIDOS -->
+        <div class="pedidos-list">
+          <div
+            *ngFor="let ped of pedidos; let i = index"
+            class="pedido-item"
+            [class.selected]="selectedPedidoIndex === i"
+            (click)="seleccionarPedido(i)"
+          >
+            <strong>ID Pedido:</strong> {{ ped.id_pedido }} <br />
+            <strong>Cliente:</strong> {{ ped.cliente_nombre }} <br />
+            <strong>Email:</strong> {{ ped.cliente_correo }} <br />
+            <strong>Total:</strong> ${{ ped.total }} <br />
+            <strong>Estado:</strong> {{ ped.estado }}
+          </div>
+        </div>
+
+        //DETALLE DEL PEDIDO SELECCIONADO
+        <div class="pedido-detail" *ngIf="selectedPedidoIndex != null">
+          <h4>Detalle del pedido</h4>
+
+          <div *ngIf="pedidos[selectedPedidoIndex] as P">
+            <p><strong>ID Pedido:</strong> {{ P.id_pedido }}</p>
+            <p><strong>Cliente:</strong> {{ P.cliente_nombre }}</p>
+            <p><strong>Email:</strong> {{ P.cliente_correo }}</p>
+            <p><strong>Fecha:</strong> {{ P.fecha_pedido | date : 'short' }}</p>
+            <p><strong>Total:</strong> ${{ P.total }}</p>
+
+            <label>Estado del pedido</label>
+            <select (change)="actualizarEstadoPedido($any($event.target).value)">
+              <option [selected]="P.estado === 'Pendiente'" value="Pendiente">Pendiente</option>
+              <option [selected]="P.estado === 'Enviado'" value="Enviado">Enviado</option>
+              <option [selected]="P.estado === 'Entregado'" value="Entregado">Entregado</option>
+              <option [selected]="P.estado === 'Cancelado'" value="Cancelado">Cancelado</option>
+            </select>
+
+            <br /><br />
+            <p><i>* Los cambios se guardan automáticamente en el servidor *</i></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,92 @@
+.registro-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.titulo {
+  text-align: center;
+  color: #333;
+  margin-bottom: 2rem;
+}
+
+.registro-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-weight: 500;
+  color: #333;
+}
+
+input {
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+input.input-error {
+  border-color: #dc3545;
+}
+
+.error {
+  color: #dc3545;
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.checkbox {
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.checkbox input {
+  width: auto;
+}
+
+.btn-rojo {
+  background-color: #dc3545;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btn-rojo:hover {
+  background-color: #c82333;
+}
+
+.btn-rojo:disabled {
+  background-color: #e9ecef;
+  cursor: not-allowed;
+}
+
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.login-link a {
+  color: #dc3545;
+  text-decoration: none;
+}
+
+.login-link a:hover {
+  text-decoration: underline;
+}

@@ -1,0 +1,36 @@
+<div class="tecnologia-container">
+  <!-- HEADER -->
+  <div class="tec-header">
+    <h2 class="titulo-seccion">Tecnología y Electrónicos</h2>
+    <p class="subtitulo-tec">Descubre lo último en innovación, gadgets y entretenimiento</p>
+    <div class="linea-decorativa-tec"></div>
+  </div>
+
+  <!-- CARGANDO -->
+  <div *ngIf="cargando" class="cargando">
+    <div class="spinner"></div>
+    <p>Cargando productos de tecnología...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error && !cargando" class="error">
+    <p> {{ error }}</p>
+    <button (click)="cargarProductosTecnologia()" class="btn-reintentar">Reintentar</button>
+  </div>
+
+  <!-- GRID DE PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length > 0" class="productos-grid">
+    <app-producto-card
+      *ngFor="let producto of productos"
+      [producto]="producto"
+      [mostrarBadgeOferta]="true"
+    >
+    </app-producto-card>
+  </div>
+
+  <!-- SIN PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length === 0" class="sin-productos">
+    <p>😔 No hay productos disponibles en la categoría Tecnología en este momento.</p>
+    <p>Prueba más tarde o visita otras categorías.</p>
+  </div>
+</div>

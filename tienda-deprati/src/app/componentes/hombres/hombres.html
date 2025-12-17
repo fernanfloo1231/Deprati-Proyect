@@ -1,0 +1,44 @@
+<div class="hombres-container">
+  <div class="header-section">
+    <h2 class="titulo-seccion">Moda para Hombres</h2>
+    <div class="linea-decorativa"></div>
+    <p class="subtitulo">Descubre lo mejor en estilo masculino</p>
+  </div>
+
+  <!-- Cargando -->
+  <ng-container *ngIf="cargando">
+    <div class="estado cargando-estado">
+      <div class="loader"></div>
+      <p>Cargando productos...</p>
+    </div>
+  </ng-container>
+
+  <!-- Error -->
+  <ng-container *ngIf="error && !cargando">
+    <div class="estado error-estado">
+      <p> {{ error }}</p>
+      <button (click)="cargarProductosHombres()" class="btn-reintentar">Reintentar</button>
+    </div>
+  </ng-container>
+
+  <!-- Productos -->
+  <ng-container *ngIf="!cargando && !error && productos.length > 0">
+    <div class="productos-grid">
+      <app-producto-card
+        *ngFor="let producto of productos"
+        [producto]="producto"
+        [categoria]="'Hombres'"
+        [mostrarBadgeOferta]="true"
+      >
+        >
+      </app-producto-card>
+    </div>
+  </ng-container>
+
+  <!-- Sin productos -->
+  <ng-container *ngIf="!cargando && !error && productos.length === 0">
+    <div class="estado sin-productos">
+      <p> No hay productos disponibles en esta categoría.</p>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,56 @@
+<a class="volver-link" (click)="volver()">← Volver</a>
+
+<div class="detalle-card" *ngIf="producto">
+  <!-- IMAGEN -->
+  <div class="detalle-img-box">
+    <img [src]="imagen" [alt]="producto.nombre" class="detalle-img" />
+  </div>
+
+  <!-- INFORMACIÓN -->
+  <div class="detalle-info">
+    <h1 class="detalle-nombre">{{ producto.nombre }}</h1>
+    <h3 class="detalle-marca">{{ producto.marca }}</h3>
+
+    <div class="detalle-precios">
+      <span class="precio-actual"> ${{ producto.precio_oferta || producto.precio_normal }} </span>
+
+      <span *ngIf="producto.precio_oferta" class="precio-original">
+        ${{ producto.precio_normal }}
+      </span>
+    </div>
+
+    <!-- SELECTOR DE CANTIDAD -->
+    <div class="cantidad-section">
+      <label>Cantidad:</label>
+
+      <div class="cantidad-box">
+        <button (click)="disminuirCantidad()" [disabled]="cantidad <= 1">−</button>
+
+        <span class="cantidad-num">{{ cantidad }}</span>
+
+        <button (click)="aumentarCantidad()" [disabled]="cantidad >= producto.stock">+</button>
+      </div>
+
+      <div class="stock-info">({{ producto.stock }} disponibles)</div>
+    </div>
+
+    <p class="detalle-descripcion">{{ producto.descripcion }}</p>
+
+    <!-- BOTONES -->
+    <div class="detalle-botones">
+      <button class="btn-elegante btn-carrito-elegante" (click)="agregarAlCarrito()">
+        <span class="icono">
+          <img src="img/carrito.png" alt="Carrito" />
+        </span>
+        Agregar al carrito
+      </button>
+
+      <button class="btn-elegante btn-detalle-elegante" (click)="volver()">
+        <span class="icono">
+          <img src="img/flecha-hacia-atras.png" alt="Volver" />
+        </span>
+        Volver
+      </button>
+    </div>
+  </div>
+</div>

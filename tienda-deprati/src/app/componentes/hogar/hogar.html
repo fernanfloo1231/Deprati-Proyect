@@ -1,0 +1,35 @@
+<div class="hogar-container">
+  <!-- HEADER -->
+  <div class="header-section">
+    <h2 class="titulo-seccion">Productos para el Hogar</h2>
+    <p class="subtitulo">Encuentra artículos esenciales para tu comodidad y estilo</p>
+    <div class="linea-decorativa"></div>
+  </div>
+
+  <!-- CARGANDO -->
+  <div *ngIf="cargando" class="estado cargando-estado">
+    <div class="spinner"></div>
+    <p>Cargando productos para el hogar...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error && !cargando" class="estado error-estado">
+    <p>⚠️ {{ error }}</p>
+    <button (click)="cargarProductosHogar()" class="btn-reintentar">Reintentar</button>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length > 0" class="productos-grid">
+    <app-producto-card
+      *ngFor="let producto of productos"
+      [producto]="producto"
+      [mostrarBadgeOferta]="true"
+    >
+    </app-producto-card>
+  </div>
+
+  <!-- SIN PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length === 0" class="estado sin-productos">
+    <p>😔 No hay productos disponibles en la categoría Hogar en este momento.</p>
+  </div>
+</div>

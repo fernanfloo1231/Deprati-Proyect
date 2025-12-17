@@ -1,0 +1,71 @@
+<nav class="navbar">
+  <div class="container">
+
+    <!-- Logo -->
+    <div class="navbar-logo">
+      <img src="img/logo.png" alt="DePrati Logo" routerLink="/home" />
+    </div>
+
+    <!-- Buscador -->
+    <div class="navbar-search">
+      <input
+        type="text"
+        placeholder="Busca tu producto..."
+        [(ngModel)]="searchQuery"
+        (keyup)="onSearchChange()"
+      />
+    </div>
+
+    <!-- Links -->
+    <ul class="navbar-links">
+      <li><a routerLink="/home">Inicio</a></li>
+      <li><a routerLink="/mujeres">Mujeres</a></li>
+      <li><a routerLink="/hombres">Hombres</a></li>
+      <li><a routerLink="/belleza">Belleza</a></li>
+      <li><a routerLink="/hogar">Hogar</a></li>
+      <li><a routerLink="/tecnologia">Tecnología</a></li>
+      <li><a routerLink="/ofertas">Ofertas</a></li>
+    </ul>
+
+    <!-- Iconos -->
+    <div class="navbar-icons">
+
+      <!-- Usuario -->
+      <ng-container *ngIf="user; else showLogin">
+        <a routerLink="/perfil" class="icon-link">
+          <i class="bi bi-person-circle"></i>
+          <span>{{ user.nombre || 'Perfil' }}</span>
+        </a>
+      </ng-container>
+
+      <ng-template #showLogin>
+        <a routerLink="/login" class="icon-link">
+          <i class="bi bi-person"></i>
+          <span>Login</span>
+        </a>
+      </ng-template>
+
+      <!-- Carrito -->
+      <a routerLink="/carrito" class="icon-link carrito-icon">
+        <i class="bi bi-bag"></i>
+        <span *ngIf="carritoCount > 0" class="carrito-count">{{ carritoCount }}</span>
+      </a>
+
+      <!-- Rastreo -->
+      <a routerLink="/rastreo" class="icon-link">
+        <i class="bi bi-geo-alt"></i>
+        <span>Rastreo</span>
+      </a>
+
+     <!-- 🌙☀️ SWITCH TEMA (Uiverse.io) -->
+<label class="switch theme-switch" title="Cambiar tema">
+  <input type="checkbox" (change)="toggleTheme()" />
+  <span class="slider round">
+    <span class="sun-moon"></span>
+  </span>
+</label>
+
+
+    </div>
+  </div>
+</nav>

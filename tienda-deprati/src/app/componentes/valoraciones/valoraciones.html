@@ -1,0 +1,73 @@
+<div class="valoraciones-wrapper">
+  <h3 class="titulo">Opiniones de nuestros compradores 🛍️</h3>
+
+  <!-- Lista de valoraciones -->
+  <div class="lista-valoraciones">
+    <div class="valoracion-card" *ngFor="let v of valoraciones">
+      <div class="header">
+        <div class="avatar">
+          <i class="bi bi-person-circle"></i>
+        </div>
+        <div>
+          <h4>{{ v.cliente }}</h4>
+          <p class="producto">{{ v.producto }}</p>
+        </div>
+      </div>
+
+      <div class="estrellas">
+        <i class="bi bi-star-fill" *ngFor="let s of getStars(v.estrellas)"></i>
+        <i class="bi bi-star" *ngFor="let s of getEmptyStars(v.estrellas)"></i>
+      </div>
+
+      <p class="comentario">"{{ v.comentario }}"</p>
+      <p class="fecha">{{ v.fecha }}</p>
+    </div>
+  </div>
+
+  <hr />
+
+  <!-- Formulario para nueva valoración -->
+  <h4 class="subtitulo">Deja tu valoración</h4>
+  <form (ngSubmit)="agregarValoracion()" #formValoracion="ngForm" class="form-valoracion">
+    <input
+      type="text"
+      placeholder="Tu nombre"
+      [(ngModel)]="nuevaValoracion.cliente"
+      name="cliente"
+      required
+    />
+    <input
+      type="text"
+      placeholder="Producto"
+      [(ngModel)]="nuevaValoracion.producto"
+      name="producto"
+      required
+    />
+
+    <div class="estrellas-selector">
+      <label *ngFor="let star of [1, 2, 3, 4, 5]">
+        <input
+          type="radio"
+          name="estrellas"
+          [value]="star"
+          [(ngModel)]="nuevaValoracion.estrellas"
+        />
+        <i
+          class="bi"
+          [class.bi-star-fill]="star <= nuevaValoracion.estrellas"
+          [class.bi-star]="star > nuevaValoracion.estrellas"
+        ></i>
+      </label>
+    </div>
+
+    <textarea
+      rows="3"
+      placeholder="Escribe tu comentario..."
+      [(ngModel)]="nuevaValoracion.comentario"
+      name="comentario"
+      required
+    ></textarea>
+
+    <button type="submit" class="btn-enviar">Enviar valoración</button>
+  </form>
+</div>

@@ -1,0 +1,167 @@
+<div class="producto-card">
+  <!-- Imagen del producto -->
+  <div class="producto-imagen">
+    <img
+      [src]="getImagenUrl(producto.imagen_url) || 'img/imagenplaceholder.jpg'"
+      [alt]="producto.nombre"
+      (error)="onImageError($event)"
+    />
+
+    <!-- Badge de OFERTA ESPECIAL -->
+    <div *ngIf="mostrarBadgeOferta && tieneDescuento(producto)" class="oferta-badge">🔥 OFERTA</div>
+
+    <!-- Badge de descuento -->
+    <div *ngIf="tieneDescuento(producto)" class="descuento-badge">
+      -{{ porcentajeDescuento(producto) }}%
+    </div>
+
+    <!-- Badge de agotado -->
+    <div *ngIf="producto.stock === 0" class="agotado-badge">Agotado</div>
+  </div>
+
+  <div class="producto-info">
+    <h3 class="producto-nombre">{{ producto.nombre }}</h3>
+    <p class="producto-marca">{{ producto.marca }}</p>
+    <p class="producto-descripcion">{{ producto.descripcion }}</p>
+
+    <!-- Precios -->
+    <div class="precios">
+      <span class="precio-actual">${{ precioConDescuento(producto) | number : '1.2-2' }}</span>
+      <span *ngIf="tieneDescuento(producto)" class="precio-original">
+        ${{ producto.precio_normal | number : '1.2-2' }}
+      </span>
+    </div>
+
+    <!-- Stock -->
+    <div class="stock-info">
+      <span
+        class="stock"
+        [class.poco-stock]="producto.stock > 0 && producto.stock < 10"
+        [class.sin-stock]="producto.stock === 0"
+      >
+        {{
+          producto.stock > 0 ? (producto.stock < 10 ? 'Últimas unidades' : 'En stock') : 'Agotado'
+        }}
+      </span>
+      <span *ngIf="producto.stock > 0" class="stock-cantidad">
+        ({{ producto.stock }} disponibles)
+      </span>
+    </div>
+
+    <!-- Selector de cantidad -->
+    <div *ngIf="!isAdmin && producto.stock > 0" class="selector-cantidad">
+      <label for="cantidad-{{ producto.id_producto }}">Cantidad:</label>
+      <div class="cantidad-controls">
+        <button
+          type="button"
+          (click)="disminuirCantidad()"
+          [disabled]="cantidadSeleccionada <= 1"
+          class="btn-cantidad btn-menos"
+        >
+          -
+        </button>
+        <input
+          type="number"
+          id="cantidad-{{ producto.id_producto }}"
+          [(ngModel)]="cantidadSeleccionada"
+          [min]="1"
+          [max]="producto.stock"
+          class="input-cantidad"
+          (change)="validarCantidad()"
+        />
+        <button
+          type="button"
+          (click)="aumentarCantidad()"
+          [disabled]="cantidadSeleccionada >= producto.stock"
+          class="btn-cantidad btn-mas"
+        >
+          +
+        </button>
+      </div>
+    </div>
+
+    <!-- Controles de stock SOLO para admin -->
+    <div *ngIf="isAdmin" class="admin-stock-controls">
+      <div class="stock-actions">
+        <span class="stock-label">Admin:</span>
+
+        <button
+          (click)="disminuirStockTemporal(1)"
+          class="btn-stock btn-stock-minus"
+          title="Reducir stock"
+        >
+          -
+        </button>
+
+        <button
+          (click)="aumentarStockTemporal(1)"
+          class="btn-stock btn-stock-plus"
+          title="Aumentar stock"
+        >
+          +
+        </button>
+
+        <div class="stock-input-group">
+          <input
+            #stockInput
+            type="number"
+            [value]="stockTemporal"
+            min="0"
+            class="stock-input"
+            (change)="onStockInputChange($event)"
+            (keyup)="onStockInputChange($event)"
+            (focus)="onStockInputFocus()"
+            (blur)="onStockInputBlur()"
+            [class.editing]="editandoStock"
+          />
+
+          <div *ngIf="editandoStock" class="stock-action-buttons">
+            <button (click)="aplicarCambioStock()" class="btn-stock-apply" title="Aplicar cambios">
+              ✓
+            </button>
+            <button (click)="cancelarCambioStock()" class="btn-stock-cancel" title="Cancelar">
+              ✗
+            </button>
+          </div>
+
+          <button
+            *ngIf="!editandoStock"
+            (click)="aplicarCambioStock()"
+            class="btn-stock-apply"
+            title="Aplicar stock"
+          >
+            ✓
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="editandoStock" class="changes-pending">
+        <small>Cambios pendientes: {{ producto.stock }} → {{ stockTemporal }}</small>
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="acciones">
+      <!-- Ver detalle -->
+      <button class="btn-elegante btn-detalle-elegante" (click)="verDetalle(producto)">
+        <span class="icono">
+          <img src="img/avance.png" alt="Ver" />
+        </span>
+        <span>Ver detalle</span>
+      </button>
+
+      <!-- Agregar al carrito -->
+      <button
+        class="btn-elegante btn-carrito-elegante"
+        [class.btn-disabled]="producto.stock === 0"
+        (click)="onAgregarAlCarrito(producto)"
+        [disabled]="producto.stock === 0"
+      >
+        <span class="icono">
+          <img src="img/carrito.png" alt="Carrito" />
+        </span>
+        <span>{{ producto.stock > 0 ? 'Agregar' : 'Agotado' }}</span>
+      </button>
+    </div>
+  </div>
+</div>

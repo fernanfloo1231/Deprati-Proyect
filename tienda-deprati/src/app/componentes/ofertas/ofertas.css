@@ -1,0 +1,155 @@
+/* =============================
+   CONTENEDOR GENERAL
+============================= */
+.ofertas-container {
+  max-width: 1400px;
+  margin: 40px auto;
+  padding: 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =============================
+   HEADER OFERTAS
+============================= */
+.ofertas-header {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.titulo-seccion {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #8B0000;
+  /* rojo sangre */
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+}
+
+.subtitulo-ofertas {
+  font-size: 1.15rem;
+  color: #444;
+  font-weight: 400;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+.linea-decorativa-ofertas {
+  width: 90px;
+  height: 4px;
+  background: #ff6f00;
+  /* un color llamativo para ofertas */
+  margin: 8px auto 20px auto;
+  border-radius: 4px;
+}
+
+/* =============================
+   GRID — 4 PRODUCTOS POR FILA
+============================= */
+.grid-ofertas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  justify-items: center;
+}
+
+@media (max-width: 1200px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid-ofertas {
+    grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+/* =============================
+   ESTADOS
+============================= */
+.cargando {
+  text-align: center;
+  padding: 3rem;
+  color: #666;
+}
+
+.spinner {
+  border: 4px solid #eee;
+  border-top: 4px solid #ff6f00;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  text-align: center;
+  padding: 20px;
+  background: #ffebee;
+  border: 1px solid #ffcdd2;
+  border-radius: 12px;
+  margin: 20px auto;
+  max-width: 500px;
+}
+
+.btn-reintentar {
+  background: #ff6f00;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.btn-reintentar:hover {
+  background: #cc5900;
+}
+
+/* =============================
+   SIN OFERTAS
+============================= */
+.sin-ofertas {
+  text-align: center;
+  padding: 3rem;
+  background: #fff8e1;
+  border-radius: 12px;
+  border: 2px dashed #ffcc80;
+  color: #8B6E00;
+  margin-top: 20px;
+}
+
+/* CONTADOR OFERTAS */
+.contador-ofertas {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: #ff6f00;
+  font-weight: 600;
+}

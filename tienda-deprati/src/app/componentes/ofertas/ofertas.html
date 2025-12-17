@@ -1,0 +1,43 @@
+<div class="ofertas-container">
+  <!-- HEADER -->
+  <div class="ofertas-header">
+    <h2 class="titulo-seccion">🔥 Ofertas Especiales</h2>
+    <p class="subtitulo-ofertas">Aprovecha descuentos únicos por tiempo limitado</p>
+    <div class="linea-decorativa-ofertas"></div>
+  </div>
+
+  <!-- CARGANDO -->
+  <div *ngIf="cargando" class="cargando">
+    <div class="spinner"></div>
+    <p>Buscando las mejores ofertas para ti...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error && !cargando" class="error">
+    <p>{{ error }}</p>
+    <button (click)="cargarProductosEnOferta()" class="btn-reintentar">Reintentar</button>
+  </div>
+
+  <!-- SIN OFERTAS -->
+  <div *ngIf="!cargando && !error && productosEnOferta.length === 0" class="sin-ofertas">
+    <p>😔 No hay ofertas disponibles en este momento.</p>
+    <p>¡Vuelve pronto para descubrir promociones especiales!</p>
+  </div>
+
+  <!-- OFERTAS -->
+  <div *ngIf="!cargando && !error && productosEnOferta.length > 0" class="ofertas-info">
+    <p class="contador-ofertas">
+      ¡Encontraste <strong>{{ productosEnOferta.length }}</strong>
+      {{ productosEnOferta.length === 1 ? 'oferta' : 'ofertas' }} especiales!
+    </p>
+
+    <div class="grid-ofertas">
+      <app-producto-card
+        *ngFor="let producto of productosEnOferta"
+        [producto]="producto"
+        [mostrarBadgeOferta]="true"
+      >
+      </app-producto-card>
+    </div>
+  </div>
+</div>

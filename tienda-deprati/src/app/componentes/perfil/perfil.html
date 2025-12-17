@@ -1,0 +1,105 @@
+<div class="perfil-header">
+  <h2>Bienvenido, {{ user?.nombre }}</h2>
+</div>
+
+<div class="perfil-container" *ngIf="user; else noUser">
+  <h2 class="titulo">MI PERFIL</h2>
+
+  <div class="perfil-contenido">
+    <!-- PANEL IZQUIERDO -->
+    <div class="perfil-left">
+      <div class="foto-usuario">
+        <img [src]="user.foto ?? 'assets/img/default-user.png'" alt="Foto del usuario" />
+      </div>
+      <h3>{{ user.nombre || 'Usuario sin nombre' }}</h3>
+      <p class="email">{{ user.email }}</p>
+
+      <div class="info">
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Proveedor:</strong> {{ user.provider | uppercase }}</p>
+      </div>
+
+      <button class="btn-rojo" (click)="logout()">CERRAR SESIÓN</button>
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="perfil-right">
+      <div class="perfil-seccion">
+        <div class="seccion-header">
+          <h4>📦 Mis Pedidos Recientes</h4>
+          <button (click)="verTodosLosPedidos()" class="btn-ver-todos">Ver todos →</button>
+        </div>
+
+        <!-- DEBUG: Mostrar estado de carga -->
+        <div *ngIf="loading" class="loading">
+          <p>Cargando pedidos...</p>
+        </div>
+
+        <!-- DEBUG: Mostrar si hay error -->
+        <div *ngIf="!loading && pedidos.length === 0" class="vacio">
+          <div class="vacio-icono">📦</div>
+          <p>No tienes pedidos registrados.</p>
+          <a routerLink="/productos" class="btn-comprar">Realizar mi primera compra</a>
+        </div>
+
+        <!-- PEDIDOS -->
+        <div *ngIf="!loading && pedidos.length > 0" class="tarjetas-pedidos">
+          <div *ngFor="let p of pedidos" class="tarjeta-pedido">
+            <div class="pedido-header">
+              <div class="pedido-info">
+                <h5>Pedido #{{ p.id_pedido }}</h5>
+                <span class="fecha-pedido">{{ p.fecha_pedido | date : 'dd/MM/yyyy HH:mm' }}</span>
+              </div>
+              <div class="estado-pedido">
+                <span [class]="'estado-' + p.estado.toLowerCase()">
+                  {{ p.estado }}
+                </span>
+              </div>
+            </div>
+
+            <div class="pedido-detalles">
+              <div class="detalle-item">
+                <strong>Total:</strong>
+                <span class="total"> ${{ +p.total || 0 | number : '1.2-2' }} </span>
+              </div>
+
+              <div class="detalle-item">
+                <strong>Método de pago:</strong>
+                <span>{{ p.metodo_pago }}</span>
+              </div>
+
+              <div class="detalle-item">
+                <strong>Dirección:</strong>
+                <span class="direccion">{{ p.direccion_entrega }}</span>
+              </div>
+
+              <div class="detalle-item estado-rastreo">
+                <strong>🚚 Entrega:</strong>
+                <span [class]="'rastreo-' + getEstadoEntrega(p).toLowerCase().replace(' ', '-')">
+                  {{ getEstadoEntrega(p) }}
+                </span>
+              </div>
+            </div>
+
+            <div class="pedido-acciones">
+              <button
+                (click)="rastrearPedido(p.id_pedido)"
+                class="btn-rastreo"
+                [disabled]="p.estado === 'Cancelado'"
+              >
+                📍 Rastrear Pedido
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noUser>
+  <div class="no-user">
+    <h2>Debes iniciar sesión para ver tu perfil</h2>
+    <a routerLink="/login" class="btn-rojo">INICIAR SESIÓN</a>
+  </div>
+</ng-template>

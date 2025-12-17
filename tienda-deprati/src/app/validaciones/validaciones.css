@@ -1,0 +1,93 @@
+/* ----- Contenedor principal del formulario ----- */
+
+.formulario-pago {
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+/* Títulos de sección */
+
+.formulario-pago h2 {
+    color: #c91f27;
+    font-size: 1.3rem;
+    margin-top: 1rem;
+    margin-bottom: 0.5rem;
+    border-bottom: 2px solid #c91f27;
+    padding-bottom: 0.3rem;
+}
+
+/* Campos de texto, select y textarea */
+
+.formulario-pago input,
+.formulario-pago select,
+.formulario-pago textarea {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.formulario-pago input:focus,
+.formulario-pago select:focus,
+.formulario-pago textarea:focus {
+    border-color: #c91f27;
+}
+
+/* Textarea */
+
+.formulario-pago textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Botón de envío */
+
+.btn-finalizar {
+    margin-top: 1rem;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    background-color: #c91f27;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-finalizar:hover {
+    background-color: #a81920;
+}
+
+/* Scroll si hay muchos campos */
+
+html,
+body {
+    height: 100%;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+
+/* En pantallas pequeñas */
+
+@media (max-width: 600px) {
+    .formulario-pago {
+        padding: 1rem;
+        margin: 1rem;
+    }
+
+    .formulario-pago h2 {
+        font-size: 1.1rem;
+    }
+}

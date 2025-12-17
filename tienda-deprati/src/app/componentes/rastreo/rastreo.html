@@ -1,0 +1,122 @@
+<div class="rastreo-container">
+  <div class="rastreo-header">
+    <h2>🚚 Rastreo de Pedidos</h2>
+    <p>Sigue el recorrido de tu pedido en tiempo real</p>
+  </div>
+
+  <div class="buscador-rastreo">
+    <div class="input-group">
+      <input
+        type="text"
+        [(ngModel)]="codigoPedido"
+        placeholder="Ingresa el número de tu pedido (ej: 12345)"
+        class="codigo-input"
+        (keyup.enter)="buscarPedido()"
+        [disabled]="estaBuscando()"
+      />
+      <button (click)="buscarPedido()" class="btn-buscar" [disabled]="estaBuscando()">
+        <span *ngIf="!estaBuscando()">🔍 Buscar Pedido</span>
+        <span *ngIf="estaBuscando()">⏳ Buscando...</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Botón de prueba temporal -->
+  <div style="text-align: center; margin: 20px 0">
+    <button (click)="probarMapaSimple()" class="btn btn-success" [disabled]="estaBuscando()">
+      🗺️ PROBAR MAPA (TEMPORAL)
+    </button>
+  </div>
+
+  <!-- Mensajes -->
+  <div *ngIf="mensaje" class="mensaje-alerta" [class.mensaje-success]="esMensajeExitoso()">
+    {{ mensaje }}
+    <button *ngIf="!estaBuscando()" class="btn-cerrar-mensaje" (click)="mensaje = ''">×</button>
+  </div>
+
+  <!-- Información del pedido -->
+  <div *ngIf="pedido && rastreo" class="info-rastreo">
+    <div class="pedido-info-card">
+      <div class="pedido-header-info">
+        <h3>Pedido #{{ pedido.id_pedido }}</h3>
+        <div class="estado-pedido" [ngClass]="estadoClase">
+          {{ estado }}
+        </div>
+      </div>
+
+      <div class="progreso-entrega">
+        <div class="progreso-bar">
+          <div class="progreso-fill" [style.width.%]="getProgresoEntrega()"></div>
+        </div>
+        <div class="progreso-text">{{ getProgresoEntrega() }}% completado</div>
+      </div>
+
+      <div class="detalles-rastreo">
+        <div class="detalle-item">
+          <strong>📍 Ubicación actual:</strong>
+          <span>{{ rastreo.ubicacion_actual }}, {{ rastreo.ciudad }}</span>
+        </div>
+
+        <div class="detalle-item">
+          <strong>📅 Última actualización:</strong>
+          <span>{{ rastreo.fecha_actualizacion | date : 'dd/MM/yyyy HH:mm' }}</span>
+        </div>
+
+        <div class="detalle-item">
+          <strong>📋 Estado:</strong>
+          <span>{{ getDescripcionEstado() }}</span>
+        </div>
+
+        <div class="detalle-item" *ngIf="rastreo.observaciones">
+          <strong>💡 Observaciones:</strong>
+          <span>{{ rastreo.observaciones }}</span>
+        </div>
+
+        <div class="detalle-item">
+          <strong>🏠 Dirección de entrega:</strong>
+          <span>{{ pedido.direccion_entrega }}</span>
+        </div>
+
+        <div *ngIf="isRetrasado()" class="detalle-item alerta-retraso">
+          <strong>⚠️ Alerta:</strong>
+          <span>Tu pedido está experimentando retrasos. Te mantendremos informado.</span>
+        </div>
+
+        <div *ngIf="isEntregado()" class="detalle-item alerta-entregado">
+          <strong>✅ ¡Entregado!</strong>
+          <span>Tu pedido ha sido entregado satisfactoriamente.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="mapa-container">
+      <h4>🗺️ Ruta de Entrega</h4>
+      <div id="map" class="mapa-rastreo"></div>
+      <div class="leyenda-mapa">
+        <div class="leyenda-item">
+          <span class="color-marca" style="background: #007bff"></span>
+          <span>🏬 Origen (Tienda Quito)</span>
+        </div>
+        <div class="leyenda-item">
+          <span
+            class="color-marca"
+            [style.background]="getColorPorEstado(rastreo.estado_entrega)"
+          ></span>
+          <span>📦 Destino (Tu ubicación)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!pedido && !mensaje" class="instrucciones">
+    <div class="instrucciones-content">
+      <h3>¿Cómo rastrear tu pedido?</h3>
+      <ol>
+        <li>Ingresa el número de pedido que recibiste por correo</li>
+        <li>Haz clic en "Buscar Pedido"</li>
+        <li>Podrás ver la ubicación actual y estado de tu envío</li>
+      </ol>
+      <div class="ejemplo-codigo"><strong>Ejemplo de código:</strong> TRK-##</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+/* CONTENEDOR GENERAL */
+.hogar-container {
+  max-width: 1300px;
+  margin: 50px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== HEADER ===== */
+.header-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.titulo-seccion {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #8b0000; /* rojo sangre */
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+}
+
+.subtitulo {
+  font-size: 1.15rem;
+  color: #444;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.linea-decorativa {
+  width: 90px;
+  height: 4px;
+  background: #8b0000;
+  margin: 8px auto 20px auto;
+  border-radius: 4px;
+}
+
+/* ===== GRID ===== */
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
+  padding: 20px 0;
+}
+
+/* ===== ESTADOS ===== */
+.estado {
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.cargando-estado .spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #eee;
+  border-top-color: #8b0000;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-estado {
+  color: #8b0000;
+  font-weight: bold;
+}
+
+.sin-productos {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* ===== BOTÓN ===== */
+.btn-reintentar {
+  background: #8b0000;
+  color: white;
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.btn-reintentar:hover {
+  background: #5c0000;
+}

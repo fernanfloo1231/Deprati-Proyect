@@ -1,0 +1,288 @@
+
+body.dark-theme {
+  background: linear-gradient(180deg, #1b1b1b 0%, #121212 100%);
+  color: #e5e5e5;
+}
+body.dark-theme .navbar {
+  background: linear-gradient(180deg, #1a1a1a, #121212);
+  border-bottom: 1px solid #2a2a2a;
+}
+
+body.dark-theme .navbar a {
+  color: #f2f2f2;
+}
+
+body.dark-theme .navbar a:hover {
+  color: #c8102e;
+}
+
+body.dark-theme .navbar-search input {
+  background-color: #1f1f1f;
+  border: 1px solid #2a2a2a;
+  color: #ffffff;
+}
+
+
+body.dark-theme section,
+body.dark-theme main {
+  background-color: transparent;
+}
+
+
+body.dark-theme .producto-card {
+  background-color: #171616;
+  border-radius: 14px;
+  border: 1px solid #2a2a2a;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+body.dark-theme .producto-card h3,
+body.dark-theme .producto-card h4 {
+  color: #ffffff;
+}
+
+body.dark-theme .producto-card p,
+body.dark-theme .producto-card span,
+body.dark-theme .producto-card small {
+  color: #cfcfcf;
+}
+
+body.dark-theme .paso-container,
+body.dark-theme .resumen-pedido-card,
+body.dark-theme .metodo-pago-option,
+body.dark-theme .transferencia-box {
+  background: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* Títulos dentro de cards blancas */
+body.dark-theme .paso-container h3,
+body.dark-theme .resumen-pedido-card h4 {
+  color: #111827 !important;
+}
+
+/* Texto normal */
+body.dark-theme .paso-container p,
+body.dark-theme .paso-container span,
+body.dark-theme .resumen-pedido-card p,
+body.dark-theme .resumen-pedido-card span,
+body.dark-theme .resumen-pedido-card small {
+  color: #374151 !important;
+}
+
+/* Totales */
+body.dark-theme .resumen-pedido-card strong {
+  color: #111827 !important;
+}
+
+
+body.dark-theme .metodo-pago-option {
+  border: 1px solid #d1d5db;
+}
+
+body.dark-theme .metodo-pago-option span {
+  color: #1f2937 !important;
+}
+
+body.dark-theme .metodo-pago-option input[type="radio"] {
+  accent-color: #2563eb;
+}
+
+
+body.dark-theme .precio,
+body.dark-theme .precio-oferta {
+  color: #e11d2e;
+}
+
+
+body.dark-theme button:not(.btn-checkout-animated):not(.btn-animated):not(.btn-seguir-animado),
+body.dark-theme .btn:not(.btn-checkout-animated) {
+  background-color: #c8102e;
+  color: #ffffff;
+  border: none;
+}
+
+body.dark-theme button:hover:not(.btn-checkout-animated) {
+  background-color: #a50d25;
+}
+
+
+body.dark-theme .swal2-popup {
+  background: #1e1e1e !important;
+  color: #e5e5e5 !important;
+  border-radius: 14px;
+}
+
+body.dark-theme .swal2-title {
+  color: #ffffff !important;
+}
+
+body.dark-theme .swal2-html-container {
+  color: #cfcfcf !important;
+}
+
+body.dark-theme .swal2-confirm {
+  background: #c8102e !important;
+  color: #ffffff !important;
+}
+
+body.dark-theme .swal2-cancel {
+  background: #2a2a2a !important;
+  color: #e5e5e5 !important;
+}
+
+body.dark-theme .swal2-backdrop-show {
+  background: rgba(0, 0, 0, 0.85) !important;
+}
+
+
+body.dark-theme .navbar {
+  background: linear-gradient(180deg, #0f0f0f, #121212);
+  border-bottom: 1px solid #2a2a2a;
+}
+
+/* LINKS PRINCIPALES */
+body.dark-theme .navbar a,
+body.dark-theme .navbar span,
+body.dark-theme .navbar p {
+  color: #f5f5f5 !important;
+}
+
+/* HOVER */
+body.dark-theme .navbar a:hover {
+  color: #c8102e !important;
+}
+
+/* TEXTO USUARIO */
+body.dark-theme .navbar .user-name,
+body.dark-theme .navbar .username {
+  color: #ffffff !important;
+}
+
+/* ICONOS */
+body.dark-theme .navbar i,
+body.dark-theme .navbar svg {
+  color: #f5f5f5 !important;
+}
+
+/* BUSCADOR */
+body.dark-theme .navbar-search input {
+  background-color: #1a1a1a;
+  border: 1px solid #333;
+  color: #ffffff;
+}
+
+body.dark-theme .navbar-search input::placeholder {
+  color: #9ca3af;
+}
+
+/* BOTONES / BADGES */
+body.dark-theme .navbar button {
+  background: transparent;
+  color: #ffffff;
+}
+
+/* SWITCH DARK MODE */
+body.dark-theme .theme-toggle {
+  background: #1f1f1f;
+}
+
+
+
+/* Checkout + métodos de pago */
+body.dark-theme .paso-container *,
+body.dark-theme .resumen-pedido-card *,
+body.dark-theme .metodo-pago-option *,
+body.dark-theme .transferencia-box * {
+  color: #1f2937 !important;
+}
+
+/* Labels y títulos */
+body.dark-theme .paso-container label,
+body.dark-theme .metodo-pago-option label,
+body.dark-theme .resumen-pedido-card strong {
+  color: #111827 !important;
+}
+
+/* Texto secundario */
+body.dark-theme .paso-container small,
+body.dark-theme .resumen-pedido-card small {
+  color: #6b7280 !important;
+}
+
+/* Inputs dentro de cards blancas */
+body.dark-theme .paso-container input,
+body.dark-theme .paso-container textarea {
+  background: #ffffff !important;
+  color: #111827 !important;
+  border: 1px solid #d1d5db;
+}
+
+
+body.dark-theme .metodo-pago-option {
+  background: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+}
+
+body.dark-theme .metodo-pago-option:hover {
+  border-color: #2563eb !important;
+}
+
+body.dark-theme .resumen-pedido-card {
+  background: #ffffff !important;
+}
+
+body.dark-theme .resumen-pedido-card h4 {
+  color: #111827 !important;
+}
+
+body.dark-theme .resumen-pedido-card .total-final strong {
+  color: #111827 !important;
+}
+
+
+/* Card principal del pedido */
+body.dark-theme .pedido-card,
+body.dark-theme .pedido-item,
+body.dark-theme .pedido-container {
+  background: #ffffff !important;
+  color: #1f2937 !important;
+}
+
+/* TODO el texto dentro del pedido */
+body.dark-theme .pedido-card *,
+body.dark-theme .pedido-item *,
+body.dark-theme .pedido-container * {
+  color: #1f2937 !important;
+}
+
+/* Título del pedido */
+body.dark-theme .pedido-card h3,
+body.dark-theme .pedido-card h4 {
+  color: #111827 !important;
+}
+
+/* Texto secundario */
+body.dark-theme .pedido-card small,
+body.dark-theme .pedido-card .text-muted {
+  color: #6b7280 !important;
+}
+
+/* Bloque azul de ubicación */
+body.dark-theme .pedido-card .ubicacion-box,
+body.dark-theme .pedido-card .ubicacion-actual {
+  background: #e0f2fe !important;
+  border-left: 4px solid #2563eb;
+  color: #1e3a8a !important;
+}
+
+body.dark-theme .pedido-card .ubicacion-box *,
+body.dark-theme .pedido-card .ubicacion-actual * {
+  color: #1e3a8a !important;
+}
+
+/* Badges de estado */
+body.dark-theme .pedido-card .badge,
+body.dark-theme .pedido-card .estado {
+  color: #065f46 !important;
+}

@@ -1,0 +1,42 @@
+<div class="belleza-container">
+  <div class="belleza-header">
+    <h2 class="titulo-seccion">Belleza y Cuidado Personal</h2>
+    <p class="subtitulo-belleza">Descubre los mejores productos para tu cuidado y bienestar</p>
+    <div class="linea-decorativa-belleza"></div>
+  </div>
+
+  <!-- ESTADO CARGANDO -->
+  <ng-container *ngIf="cargando">
+    <div class="estado cargando-estado">
+      <div class="spinner"></div>
+      <p>Cargando productos de belleza...</p>
+    </div>
+  </ng-container>
+
+  <!-- ESTADO ERROR -->
+  <ng-container *ngIf="error && !cargando">
+    <div class="estado error-estado">
+      <p>{{ error }}</p>
+      <button (click)="cargarProductosBelleza()" class="btn-reintentar">Reintentar</button>
+    </div>
+  </ng-container>
+
+  <!-- ESTADO SIN PRODUCTOS -->
+  <ng-container *ngIf="!cargando && !error && productos.length === 0">
+    <div class="estado sin-productos">
+      <p>No hay productos disponibles en esta categoría.</p>
+    </div>
+  </ng-container>
+
+  <!-- PRODUCTOS -->
+  <ng-container *ngIf="!cargando && !error && productos.length > 0">
+    <div class="productos-grid">
+      <app-producto-card
+        *ngFor="let producto of productos"
+        [producto]="producto"
+        [mostrarBadgeOferta]="true"
+      >
+      </app-producto-card>
+    </div>
+  </ng-container>
+</div>

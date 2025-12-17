@@ -1,0 +1,374 @@
+.pedidos-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.pedidos-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #f0f0f0;
+}
+
+.pedidos-header h2 {
+  color: #c91f27;
+  margin-bottom: 8px;
+}
+
+.pedidos-header p {
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Estados de carga, error y vacío */
+.loading-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.loading-spinner {
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #c91f27;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.error-state {
+  text-align: center;
+  padding: 40px 20px;
+  background: #f8d7da;
+  color: #721c24;
+  border-radius: 8px;
+  margin: 20px 0;
+  border: 1px solid #f5c6cb;
+}
+
+.btn-reintentar {
+  background: #c91f27;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 15px;
+  font-weight: 600;
+  transition: background 0.3s ease;
+}
+
+.btn-reintentar:hover {
+  background: #a51b22;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 20px 0;
+}
+
+.empty-icon {
+  font-size: 80px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.empty-state h3 {
+  color: #333;
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.empty-state p {
+  color: #666;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
+}
+
+.btn-comprar {
+  display: inline-block;
+  background: #c91f27;
+  color: white;
+  padding: 12px 30px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.3s ease;
+  font-size: 1rem;
+}
+
+.btn-comprar:hover {
+  background: #a51b22;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(201, 31, 39, 0.3);
+}
+
+/* Lista de pedidos */
+.pedidos-count {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  text-align: center;
+  border-left: 4px solid #c91f27;
+  font-size: 1.1rem;
+}
+
+.pedidos-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.pedido-card {
+  background: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e9ecef;
+  transition: all 0.3s ease;
+}
+
+.pedido-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.pedido-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.pedido-info h3 {
+  color: #c91f27;
+  margin: 0 0 5px 0;
+  font-size: 1.3rem;
+}
+
+.fecha-pedido {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.pedido-estados {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-end;
+}
+
+.estado-pedido,
+.estado-entrega {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+/* Estados del pedido */
+.estado-pendiente {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.estado-enviado {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.estado-entregado {
+  background: #d4edda;
+  color: #155724;
+}
+
+.estado-cancelado {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Estados de rastreo */
+.rastreo-procesando {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.rastreo-empacado {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.rastreo-transito {
+  background: #cce7ff;
+  color: #004085;
+}
+
+.rastreo-reparto {
+  background: #d4edda;
+  color: #155724;
+}
+
+.rastreo-entregado {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #155724;
+}
+
+.rastreo-retrasado {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+/* Cuerpo del pedido */
+.pedido-body {
+  margin-bottom: 20px;
+}
+
+.productos-resumen {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.total-pedido {
+  font-weight: bold;
+  color: #c91f27;
+  font-size: 1.1rem;
+}
+
+.metodo-pago,
+.direccion-entrega {
+  margin-bottom: 10px;
+  padding: 8px 0;
+}
+
+.info-rastreo {
+  background: #e7f3ff;
+  padding: 12px;
+  border-radius: 6px;
+  margin-top: 15px;
+  border-left: 4px solid #007bff;
+}
+
+.info-rastreo small {
+  color: #6c757d;
+  font-size: 0.85rem;
+}
+
+/* Acciones del pedido */
+.pedido-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.btn-detalles,
+.btn-rastrear,
+.btn-cancelar,
+.btn-repetir {
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  flex: 1;
+  min-width: 120px;
+}
+
+.btn-detalles {
+  background: #6c757d;
+  color: white;
+}
+
+.btn-detalles:hover {
+  background: #545b62;
+}
+
+.btn-rastrear {
+  background: #c91f27;
+  color: white;
+}
+
+.btn-rastrear:hover {
+  background: #a51b22;
+}
+
+.btn-cancelar {
+  background: #dc3545;
+  color: white;
+}
+
+.btn-cancelar:hover {
+  background: #c82333;
+}
+
+.btn-repetir {
+  background: #28a745;
+  color: white;
+}
+
+.btn-repetir:hover {
+  background: #218838;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pedidos-container {
+    padding: 15px;
+  }
+
+  .pedido-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .pedido-estados {
+    align-items: flex-start;
+    flex-direction: row;
+    gap: 10px;
+  }
+
+  .productos-resumen {
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+  }
+
+  .pedido-actions {
+    flex-direction: column;
+  }
+
+  .btn-detalles,
+  .btn-rastrear,
+  .btn-cancelar,
+  .btn-repetir {
+    min-width: auto;
+  }
+}

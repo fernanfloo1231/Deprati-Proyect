@@ -1,0 +1,202 @@
+/* From Uiverse.io by vinodjangid07 */ 
+.loader {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.truckWrapper {
+  width: 200px;
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+  justify-content: flex-end;
+
+  overflow: visible;   
+  transform: scale(1.7);
+}
+
+
+/* truck upper body */
+.truckBody {
+  width: 130px;
+  height: fit-content;
+  margin-bottom: 6px;
+  animation: motion 1s linear infinite;
+}
+/* truck suspension animation*/
+@keyframes motion {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(3px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+/* truck's tires */
+.truckTires {
+  width: 130px;
+  height: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 10px 0px 15px;
+  position: absolute;
+  bottom: 0;
+}
+.truckTires svg {
+  width: 24px;
+}
+
+.road {
+  width: 100%;
+  height: 1.5px;
+  background-color: #282828;
+  position: relative;
+  bottom: 0;
+  align-self: flex-end;
+  border-radius: 3px;
+}
+.road::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 100%;
+  background-color: #282828;
+  right: -50%;
+  border-radius: 3px;
+  animation: roadAnimation 1.4s linear infinite;
+  border-left: 10px solid white;
+}
+.road::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 100%;
+  background-color: #282828;
+  right: -65%;
+  border-radius: 3px;
+  animation: roadAnimation 1.4s linear infinite;
+  border-left: 4px solid white;
+}
+
+.lampPost {
+  position: absolute;
+  bottom: 0;
+  right: -40%;
+  height: 90px;
+  z-index: 5;
+  animation: roadAnimation 1.4s linear infinite;
+}
+
+
+
+@keyframes roadAnimation {
+  0% {
+    transform: translateX(0px);
+  }
+  100% {
+    transform: translateX(-350px);
+  }
+}
+/* Overlay que cubre toda la pantalla */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 9999;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+
+
+/* Texto */
+.welcome-text {
+  margin-top: 50px;
+  font-size: 3.2rem;       /* 🔥 MÁS GRANDE */
+  font-weight: 800;
+  color: #c8102e;
+  letter-spacing: 4px;
+  animation: fadeIn 1.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.splash-overlay {
+  animation: splashIn 0.6s ease-out;
+}
+
+@keyframes splashIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+/* Overlay pantalla completa */
+.splash-overlay {
+  position: fixed;
+  inset: 0;
+  background: white;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Contenedor central */
+.splash-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;   /* 🔥 CENTRA HORIZONTAL */
+  justify-content: center;
+  text-align: center;
+}
+
+/* Loader centrado */
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Forzar el camión al centro */
+.truckWrapper {
+  margin: 0 auto;        /* 🔥 CLAVE */
+}
+
+/* Texto */
+.welcome-text {
+  margin-top: 32px;
+  font-size: 2.5rem;     /* 🔥 más grande */
+  font-weight: 800;
+  color: #c8102e;
+  letter-spacing: 3px;
+}
+

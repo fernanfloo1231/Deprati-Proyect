@@ -1,0 +1,173 @@
+.login-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    font-family: 'Poppins', sans-serif;
+    color: #333;
+}
+
+.titulo {
+    text-transform: uppercase;
+    color: #c91f27;
+    font-weight: 600;
+    border-bottom: 3px solid #f4f4f4;
+    padding-bottom: 10px;
+}
+
+.contenido {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    gap: 40px;
+}
+
+.login-left,
+.login-right {
+    flex: 1;
+}
+
+.login-left h3,
+.login-right h3 {
+    color: #c91f27;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+}
+
+.password-field {
+    position: relative;
+}
+
+.password-field .olvide {
+    position: absolute;
+    right: 0;
+    top: 10px;
+    font-size: 0.85rem;
+    color: #c91f27;
+    text-decoration: none;
+}
+
+.btn-rojo {
+    background-color: #c91f27;
+    color: #fff;
+    border: none;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.auth-buttons {
+    margin-top: 20px;
+}
+
+.btn-google,
+.btn-facebook {
+    width: 100%;
+    padding: 12px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.btn-google {
+    background-color: white;
+    color: #444;
+    border: 1px solid #ddd;
+}
+
+.btn-google:hover {
+    background-color: #f8f9fa;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-google i {
+    font-size: 20px;
+    color: #4285f4;
+}
+
+.btn-facebook {
+    background-color: #1877f2;
+    color: white;
+    border: none;
+}
+
+.btn-facebook:hover {
+    background-color: #166fe5;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.btn-facebook i {
+    font-size: 20px;
+}
+
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #ddd;
+}
+
+.separator span {
+    padding: 0 10px;
+    color: #666;
+    font-size: 14px;
+}
+
+.registro-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+}
+
+.registro-link a {
+    color: #c91f27;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.registro-link a:hover {
+    text-decoration: underline;
+}
+
+.login-right p {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 4px;
+}
+
+.input-error {
+    border: 2px solid red;
+}

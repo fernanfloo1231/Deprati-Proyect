@@ -1,0 +1,634 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #fafafa;
+  color: #333;
+}
+
+/* ----- SLIDER / CAROUSEL ----- */
+
+.slider {
+  position: relative;
+  width: 100%;
+  max-height: 500px;
+  overflow: hidden;
+  margin-bottom: 3rem;
+  border-radius: 0 0 25px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.slides {
+  display: flex;
+  transition: transform 0.8s ease-in-out;
+}
+
+.slide {
+  min-width: 100%;
+}
+
+.slide img {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  display: block;
+}
+
+/* ----- Botones de navegación del slider ----- */
+
+.prev,
+.next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1rem;
+  cursor: pointer;
+  font-size: 1.5rem;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: #c91f27;
+}
+
+.prev {
+  left: 25px;
+}
+
+.next {
+  right: 25px;
+}
+
+/* ----- Indicadores del slider ----- */
+
+.indicators {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+}
+
+.indicators span {
+  width: 12px;
+  height: 12px;
+  background-color: #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.indicators span.active {
+  background-color: #c91f27;
+  transform: scale(1.2);
+}
+
+/* ----- SECCIÓN HERO ----- */
+
+.hero {
+  background: linear-gradient(135deg, #fff, #f6f6f6);
+  padding: 4rem 2rem;
+  text-align: center;
+  border-radius: 25px;
+  margin: 2rem auto;
+  max-width: 1000px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+}
+
+.hero-content h1 {
+  font-size: 2.7rem;
+  color: #222;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.hero-content p {
+  color: #666;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background-color: #c91f27;
+  color: #fff;
+  padding: 0.8rem 1.8rem;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 10px rgba(201, 31, 39, 0.25);
+}
+
+.btn-primary:hover {
+  background-color: #a1191f;
+  transform: translateY(-2px);
+}
+
+/* ----- PRODUCTOS DESTACADOS ----- */
+
+.productos-destacados {
+  padding: 3rem 2rem;
+}
+
+.productos-destacados h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #222;
+  font-weight: 600;
+  position: relative;
+}
+
+.productos-destacados h2::after {
+  content: '';
+  display: block;
+  width: 80px;
+  height: 4px;
+  background: #c91f27;
+  margin: 0.8rem auto 0;
+  border-radius: 2px;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.8rem;
+  justify-items: center;
+}
+
+.producto-card {
+  background: #fff;
+  border-radius: 15px;
+  padding: 1rem;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.producto-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.producto-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.producto-card h3 {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 0.3rem;
+}
+
+.precio {
+  color: #c91f27;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+/* ----- BOTONES DE ACCIÓN EN PRODUCTOS ----- */
+
+.acciones-producto {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.btn-detalle,
+.btn-agregar {
+  padding: 0.55rem 1.2rem;
+  border: none;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.25s ease;
+  min-width: 120px;
+  text-align: center;
+}
+
+/* 🔹 Botón “Ver más” */
+
+.btn-ver {
+  background-color: #fff;
+  border: 2px solid #c91f27;
+  color: #c91f27;
+  box-shadow: 0 2px 5px rgba(201, 31, 39, 0.1);
+}
+
+.btn-ver:hover {
+  background-color: #c91f27;
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+/* 🔹 Botón “Agregar al carrito” */
+
+.btn-agregar {
+  background-color: #c91f27;
+  color: #fff;
+  border: 2px solid transparent;
+  box-shadow: 0 2px 6px rgba(201, 31, 39, 0.25);
+}
+
+.btn-agregar:hover {
+  background-color: #a1191f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(201, 31, 39, 0.3);
+}
+
+/* 🔹 Ajuste para pantallas pequeñas */
+
+@media (max-width: 600px) {
+  .acciones-producto {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .btn-detalle,
+  .btn-agregar {
+    width: 100%;
+  }
+}
+
+/* ----- Burbujas flotantes (chat / valoraciones) ----- */
+
+.floating-bubble {
+  position: fixed;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #c91f27;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, background 0.3s ease;
+  z-index: 9999;
+}
+
+.floating-bubble:hover {
+  transform: scale(1.1);
+  background: #a1191f;
+}
+
+.floating-bubble.valoraciones {
+  left: 30px;
+}
+
+.floating-bubble.chat {
+  right: 30px;
+}
+
+/* ----- Ventanas emergentes (chat / valoraciones) ----- */
+
+.valoraciones-window,
+.chat-window {
+  position: fixed;
+  bottom: 100px;
+  width: 320px;
+  height: 420px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  z-index: 10000;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.valoraciones-window {
+  left: 20px;
+}
+
+.chat-window {
+  right: 20px;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ----- Contenedor principal ----- */
+
+.home-container {
+  padding: 40px;
+  text-align: center;
+}
+/* ...todo tu CSS actual... */
+
+/* --- BURBUJAS FLOTANTES --- */
+.floating-bubble {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 55px;
+  height: 55px;
+  background: #e60023;
+  color: white;
+  border-radius: 50%;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease;
+  z-index: 999;
+}
+.floating-bubble:hover {
+  transform: scale(1.1);
+}
+
+/* --- CHAT WINDOW (emergente) --- */
+.chat-window {
+  position: fixed;
+  bottom: 95px;
+  right: 25px;
+  width: 400px;
+  height: 600px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  animation: fadeInUp 0.3s ease;
+  z-index: 99999;
+
+  /* 🚀 REPARA EL CHAT POR COMPLETO */
+  overflow: visible !important;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* ----- PRODUCTOS DESTACADOS ----- */
+
+.productos-destacados {
+  padding: 3rem 2rem;
+}
+
+.productos-destacados h2 {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  color: #222;
+  font-weight: 600;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.2rem;
+  padding: 0 1rem;
+}
+
+.producto-card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+  transition: all 0.28s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
+
+.producto-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.producto-img {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.producto-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Nombre */
+.producto-nombre {
+  font-size: 1.05rem;
+  color: #222;
+  min-height: 48px;
+  margin-bottom: 0.8rem;
+  font-weight: 500;
+}
+
+/* Precios */
+.precio-container {
+  margin-bottom: 1rem;
+}
+
+.precio-oferta {
+  font-size: 1.25rem;
+  color: #c91f27;
+  font-weight: bold;
+  margin-right: 6px;
+}
+
+.precio-normal {
+  font-size: 1rem;
+  color: #888;
+  text-decoration: line-through;
+}
+
+/* Botón */
+.btn-ver {
+  padding: 0.6rem 1.4rem;
+  border: 2px solid #c91f27;
+  background: #fff;
+  color: #c91f27;
+  border-radius: 25px;
+  transition: all 0.25s ease;
+  font-weight: 500;
+}
+
+.btn-ver:hover {
+  background: #c91f27;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(201, 31, 39, 0.3);
+}
+/* From Uiverse.io by jolprince_5263 */
+.card {
+  margin-top: 30px;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  backdrop-filter: blur(15px);
+  box-shadow:
+    inset 0 0 20px rgba(255,255,255,.2),
+    0 5px 10px rgba(0,0,0,.15);
+}
+
+.card ul {
+  padding: 1rem;
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.iso-pro {
+  position: relative;
+  cursor: pointer;
+}
+
+.svg {
+  height: 60px;
+  width: 60px;
+  padding: 1rem;
+  border-radius: 50%;
+  color: rgb(99, 37, 16);
+  fill: currentColor;
+  transition: .3s;
+  box-shadow:
+    inset 0 0 10px rgba(255,255,255,.4),
+    0 5px 5px rgba(0,0,0,.15);
+}
+
+.text {
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  padding: 4px 8px;
+  font-size: .8rem;
+  border-radius: 5px;
+  background: rgba(255,255,255,.9);
+  color: rgb(77, 14, 9);
+  transition: .3s;
+  white-space: nowrap;
+}
+
+.iso-pro:hover .svg {
+  transform: translateY(-6px);
+}
+
+.iso-pro:hover .text {
+  opacity: 1;
+}
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;  
+}
+
+/* --- MARCAS ASOCIADAS --- */
+.brands {
+  margin-top: 22px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.brand {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #c91f27;              /* rojo oscuro Deprati */
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(201, 31, 39, 0.08);
+  border: 1px solid rgba(201, 31, 39, 0.25);
+  letter-spacing: 0.3px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.brand:hover {
+  transform: translateY(-2px);
+  background: rgba(201, 31, 39, 0.13);
+}
+
+/* --- MARCAS ASOCIADAS --- */
+.brands {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.brands img {
+  height: 90px;              
+  max-width: 110px;
+  object-fit: contain;
+  opacity: 0.75;
+  transition: all 0.25s ease;
+  filter: grayscale(100%);
+}
+
+.brands img:hover {
+  opacity: 1;
+  filter: grayscale(0%);
+  transform: translateY(-3px);
+}
+
+/* --- TÍTULO MARCAS ASOCIADAS  --- */
+.brands-title {
+  font-size: 2.7rem;      
+  font-weight: 600;
+  color: #222;
+  text-align: center;
+  margin: 60px 0 20px;
+  letter-spacing: normal;
+}
+
+
+.brands-title::after {
+  content: '';
+  display: block;
+  width: 90px;
+  height: 4px;
+  background-color: #c91f27;
+  margin: 14px auto 0;
+  border-radius: 3px;
+}

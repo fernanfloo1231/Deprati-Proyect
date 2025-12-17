@@ -1,0 +1,107 @@
+.hombres-container {
+  max-width: 1300px;
+  margin: 50px auto;
+  padding: 0 20px;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 32px;
+  padding: 20px 0;
+}
+
+/* TITULO */
+.header-section {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.titulo-seccion {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #8b0000; /* rojo sangre */
+  margin-bottom: 5px;
+  letter-spacing: -0.5px;
+}
+
+.linea-decorativa {
+  width: 90px;
+  height: 4px;
+  background: #8b0000;
+  margin: 8px auto 20px auto;
+  border-radius: 4px;
+}
+
+.subtitulo {
+  font-size: 1.15rem;
+  color: #444;
+  font-weight: 400;
+  margin-top: 0;
+}
+
+/* ESTADOS (cargando, error, vacío) */
+.estado {
+  text-align: center;
+  padding: 45px 20px;
+  border-radius: 12px;
+  background: #fafafa;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.cargando-estado .loader {
+  border: 4px solid #eee;
+  border-top: 4px solid #c40000;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  animation: spin 1s linear infinite;
+  margin: auto;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error-estado {
+  background: #ffe6e6;
+  color: #b30000;
+}
+
+.btn-reintentar {
+  padding: 10px 16px;
+  background: #c40000;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  margin-top: 12px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.btn-reintentar:hover {
+  background: #990000;
+}
+
+.sin-productos {
+  text-align: center;
+  font-size: 1.1rem;
+  padding: 30px;
+  color: #777;
+}

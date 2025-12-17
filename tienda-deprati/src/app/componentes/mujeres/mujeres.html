@@ -1,0 +1,36 @@
+<div class="mujeres-container">
+  <!-- HEADER -->
+  <div class="header-section">
+    <h2 class="titulo-seccion">Moda para Mujeres</h2>
+    <p class="subtitulo">Descubre las mejores prendas y accesorios para tu estilo</p>
+    <div class="linea-decorativa"></div>
+  </div>
+
+  <!-- CARGANDO -->
+  <div *ngIf="cargando" class="estado cargando-estado">
+    <div class="spinner"></div>
+    <p>Cargando productos para mujeres...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error && !cargando" class="estado error-estado">
+    <p> {{ error }}</p>
+    <button (click)="cargarProductosMujeres()" class="btn-reintentar">Reintentar</button>
+  </div>
+
+  <!-- PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length > 0" class="productos-grid">
+    <app-producto-card
+      *ngFor="let producto of productos"
+      [producto]="producto"
+      [categoria]="'Mujeres'"
+      [mostrarBadgeOferta]="true"
+    >
+    </app-producto-card>
+  </div>
+
+  <!-- SIN PRODUCTOS -->
+  <div *ngIf="!cargando && !error && productos.length === 0" class="estado sin-productos">
+    <p>😔 No hay productos disponibles en la categoría Mujeres en este momento.</p>
+  </div>
+</div>

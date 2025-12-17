@@ -1,0 +1,84 @@
+<div class="search-container">
+  <h2 class="result-title">Resultados para: "{{ query }}"</h2>
+
+  <div *ngIf="resultados.length === 0" class="no-results">
+    <p>No se encontraron productos.</p>
+  </div>
+
+  <div class="grid-results">
+    <div class="producto-card" *ngFor="let p of resultados">
+      <!-- Imagen + Badges -->
+      <div class="producto-imagen">
+        <img [src]="getImagenUrl(p.imagen_url)" (error)="onImageError($event)" [alt]="p.nombre" />
+
+        <!-- Oferta -->
+        <div *ngIf="tieneDescuento(p)" class="oferta-badge">🔥 OFERTA</div>
+
+        <!-- Porcentaje -->
+        <div *ngIf="tieneDescuento(p)" class="descuento-badge">-{{ porcentajeDescuento(p) }}%</div>
+
+        <!-- Agotado -->
+        <div *ngIf="p.stock === 0" class="agotado-badge">Agotado</div>
+      </div>
+
+      <!-- Info -->
+      <div class="producto-info">
+        <h3 class="producto-nombre">{{ p.nombre }}</h3>
+        <p class="producto-marca">{{ p.marca || 'Sin marca' }}</p>
+
+        <!-- Precios -->
+        <div class="precios">
+          <span class="precio-actual">${{ precioConDescuento(p) }}</span>
+          <span *ngIf="tieneDescuento(p)" class="precio-original"> ${{ p.precio_normal }} </span>
+        </div>
+
+        <!-- Stock -->
+        <div class="stock-info">
+          <span
+            class="stock"
+            [class.poco-stock]="p.stock > 0 && p.stock < 10"
+            [class.sin-stock]="p.stock === 0"
+          >
+            {{ p.stock === 0 ? 'Agotado' : p.stock < 10 ? 'Últimas unidades' : 'En stock' }}
+          </span>
+
+          <span *ngIf="p.stock > 0" class="stock-cantidad"> ({{ p.stock }} disponibles) </span>
+        </div>
+
+        <!-- Selector cantidad -->
+        <div *ngIf="p.stock > 0" class="selector-cantidad">
+          <label>Cantidad:</label>
+
+          <div class="cantidad-controls">
+            <button (click)="p.cantidad = Math.max(1, p.cantidad - 1)">−</button>
+
+            <input type="number" [(ngModel)]="p.cantidad" min="1" [max]="p.stock" />
+
+            <button (click)="p.cantidad = Math.min(p.stock, p.cantidad + 1)">+</button>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="acciones">
+          <button class="btn-elegante btn-detalle-elegante" (click)="verDetalle(p)">
+            <span class="icono">
+              <img src="img/avance.png" alt="" />
+            </span>
+            Ver detalle
+          </button>
+
+          <button
+            class="btn-elegante btn-carrito-elegante"
+            [disabled]="p.stock === 0"
+            (click)="agregarAlCarrito(p)"
+          >
+            <span class="icono">
+              <img src="img/carrito.png" alt="" />
+            </span>
+            {{ p.stock === 0 ? 'Agotado' : 'Agregar' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

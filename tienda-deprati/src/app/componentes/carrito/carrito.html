@@ -1,0 +1,232 @@
+<div class="carrito-container">
+  <h2 class="carrito-title">Tu carrito de compras</h2>
+
+  <div *ngIf="!carritoService.estaAutenticadoPublico()" class="alert alert-warning">
+    <strong>⚠️ Carrito temporal</strong>
+    <p>
+      Tu carrito se guardará localmente. Para guardarlo permanentemente,
+      <a routerLink="/login">inicia sesión</a>.
+    </p>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Cargando carrito...</p>
+  </div>
+
+  <div *ngIf="!loading && productos.length > 0; else carritoVacio">
+    <table class="carrito-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Precio Unitario</th>
+          <th>Cantidad</th>
+          <th>Subtotal</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let producto of productos; let i = index" class="producto-row">
+          <td class="producto-info">
+            <img
+              [src]="carritoService.getImagenUrl(producto.imagen)"
+              [alt]="producto.nombre"
+              (error)="onImageError($event)"
+              class="producto-imagen"
+            />
+            <div class="producto-details">
+              <span class="producto-nombre">{{ producto.nombre }}</span>
+
+              <span *ngIf="producto.stock > 0 && producto.stock < 10" class="stock-bajo">
+                ⚠️ Solo {{ producto.stock }} disponibles
+              </span>
+
+              <span *ngIf="producto.stock === 0" class="sin-stock">
+                ❌ Agotado
+              </span>
+            </div>
+          </td>
+
+          <!--  PRECIO CON OFERTA -->
+          <td class="precio-unitario">
+            <div class="precio-container">
+              <span class="precio-real">
+                ${{ (producto.precio_real && producto.precio).toFixed(2) }}
+              </span>
+
+              <span
+                *ngIf="producto.precio_original && producto.precio_original > (producto.precio_real && producto.precio)"
+                class="precio-original"
+              >
+                ${{ producto.precio_original.toFixed(2) }}
+              </span>
+
+              <span
+                *ngIf="producto.descuento"
+                class="badge-descuento"
+              >
+                -{{ producto.descuento }}%
+              </span>
+            </div>
+          </td>
+
+          <td class="cantidad-control">
+            <input
+              type="number"
+              [min]="1"
+              [max]="producto.stock > 0 ? producto.stock : 999"
+              [value]="producto.cantidad"
+              (change)="actualizarCantidad(i, $event.target.value)"
+              (blur)="actualizarCantidad(i, $event.target.value)"
+              class="cantidad-input"
+              [class.error]="producto.stock > 0 && producto.cantidad > producto.stock"
+            />
+            <div
+              *ngIf="producto.stock > 0 && producto.cantidad > producto.stock"
+              class="error-message"
+            >
+              Máximo: {{ producto.stock }}
+            </div>
+          </td>
+
+          <td class="subtotal">
+            ${{ getSubtotal(producto).toFixed(2) }}
+          </td>
+
+          <td class="acciones">
+            <div
+  class="btn-animated btn-eliminar-animated"
+  (click)="solicitarEliminarProducto(i)"
+  data-tooltip="Eliminar producto"
+>
+  <div class="button-wrapper">
+    <div class="text">Eliminar</div>
+    <span class="icon">
+      <img
+        src="img/EL.png"
+        alt="Eliminar"
+      />
+    </span>
+  </div>
+</div>
+
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="carrito-actions">
+      <div class="total-section">
+        <div class="total-compra">
+          <span class="total-label">Total:</span>
+          <strong class="total-valor">${{ getTotal().toFixed(2) }}</strong>
+        </div>
+
+        <div
+  class="btn-animated btn-vaciar-animated"
+  (click)="vaciarCarrito()"
+  data-tooltip="Vaciar todo el carrito"
+>
+  <div class="button-wrapper">
+    <div class="text">Vaciar Carrito</div>
+    <span class="icon">
+      <img
+        src="img/Carr.png"
+        alt="Vaciar carrito"
+      />
+    </span>
+  </div>
+</div>
+
+      </div>
+
+      <div class="checkout-actions">
+        <div
+  class="btn-checkout-animated"
+  (click)="comprar()"
+  [attr.data-tooltip]="'Total: $' + getTotal().toFixed(2)"
+>
+  <div class="button-wrapper">
+    <div class="text">
+      Proceder al Checkout
+    </div>
+
+    <span class="icon">
+      <svg
+        viewBox="0 0 16 16"
+        class="bi bi-cart2"
+        fill="currentColor"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5z"
+        />
+        <path
+          d="M5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0zm9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"
+        />
+      </svg>
+    </span>
+  </div>
+</div>
+
+        <div class="styled-wrapper" (click)="seguirComprando()">
+  <button class="btn-seguir-animado">
+    <div class="button-box">
+      <!-- Flecha 1 -->
+      <span class="button-elem">
+        <svg
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          class="arrow-icon"
+        >
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+      </span>
+
+      <!-- Flecha 2 -->
+      <span class="button-elem">
+        <svg
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+          class="arrow-icon"
+        >
+          <path
+            d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"
+          />
+        </svg>
+      </span>
+    </div>
+
+    <!-- TEXTO -->
+    <span class="button-text">Seguir comprando</span>
+  </button>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <ng-template #carritoVacio>
+    <div *ngIf="!loading" class="carrito-vacio">
+      <div class="empty-icon">🛒</div>
+      <p class="carrito-vacio-msg">Tu carrito está vacío</p>
+      <p class="carrito-vacio-sub">
+        ¡Explora nuestros productos y agrega algunos items!
+      </p>
+
+      <div *ngIf="!carritoService.estaAutenticadoPublico()" class="login-suggestion">
+        <p>
+          <a routerLink="/login">Inicia sesión</a>
+          para guardar tu carrito permanentemente
+        </p>
+      </div>
+
+      <button (click)="seguirComprando()" class="btn-seguir-comprando">
+        ← Seguir Comprando
+      </button>
+    </div>
+  </ng-template>
+</div>

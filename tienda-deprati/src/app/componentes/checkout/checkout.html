@@ -1,0 +1,262 @@
+<div class="checkout-container">
+  <div class="checkout-header">
+    <h2>🛒 Finalizar Compra</h2>
+
+    <!-- PROGRESO -->
+    <div class="progreso-pasos">
+      <div class="paso" [class.activo]="pasoActual === 1" [class.completado]="pasoActual > 1">
+        <span class="numero-paso">1</span>
+        <span class="texto-paso">Identificación</span>
+      </div>
+      <div class="paso" [class.activo]="pasoActual === 2" [class.completado]="pasoActual > 2">
+        <span class="numero-paso">2</span>
+        <span class="texto-paso">Envío</span>
+      </div>
+      <div class="paso" [class.activo]="pasoActual === 3" [class.completado]="pasoActual > 3">
+        <span class="numero-paso">3</span>
+        <span class="texto-paso">Pago</span>
+      </div>
+      <div class="paso" [class.activo]="pasoActual === 4">
+        <span class="numero-paso">4</span>
+        <span class="texto-paso">Confirmación</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="checkout-content">
+    <!-- COLUMNA IZQUIERDA -->
+    <div class="formulario-columna">
+      <!-- ================= PASO 1: IDENTIFICACIÓN ================= -->
+      <div *ngIf="pasoActual === 1" class="paso-container">
+        <h3>🧾 Identificación</h3>
+        <p>Solicitamos únicamente la información esencial para finalizar la compra.</p>
+
+        <div class="fila-datos">
+          <div class="form-group">
+            <label>Nombre *</label>
+            <input class="form-control" [(ngModel)]="nombre" />
+          </div>
+          <div class="form-group">
+            <label>Apellidos *</label>
+            <input class="form-control" [(ngModel)]="apellidos" />
+          </div>
+        </div>
+
+        <div class="fila-datos">
+          <div class="form-group">
+            <label>Cédula *</label>
+            <input class="form-control" maxlength="10" [(ngModel)]="cedula" />
+          </div>
+          <div class="form-group">
+            <label>Teléfono / Móvil *</label>
+            <input class="form-control" [(ngModel)]="telefono" />
+          </div>
+        </div>
+
+        <div class="acciones-paso">
+          <button
+            class="btn-siguiente"
+            [disabled]="!validarIdentificacion()"
+            (click)="siguientePaso()"
+          >
+            Ir al Envío →
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= PASO 2: ENVÍO ================= -->
+      <div *ngIf="pasoActual === 2" class="paso-container">
+        <h3>📍 Dirección de Envío</h3>
+
+        <div class="form-group">
+          <label>Dirección completa *</label>
+          <textarea
+            class="form-control"
+            rows="3"
+            [(ngModel)]="direccionEntrega"
+            placeholder="Calle, número, ciudad, provincia"
+          ></textarea>
+          <small>Mínimo 10 caracteres</small>
+        </div>
+
+        <div class="form-group">
+          <label>Observaciones (opcional)</label>
+          <textarea class="form-control" rows="2" [(ngModel)]="observaciones"></textarea>
+        </div>
+
+        <div class="acciones-paso">
+          <button class="btn-anterior" (click)="pasoAnterior()">← Volver</button>
+          <button class="btn-siguiente" [disabled]="!validarPaso1()" (click)="siguientePaso()">
+            Ir al Pago →
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= PASO 3: PAGO ================= -->
+      <div *ngIf="pasoActual === 3" class="paso-container">
+        <h3>💳 Método de Pago</h3>
+
+        <div class="metodos-pago">
+          <label class="metodo-pago-option">
+            <input type="radio" value="Tarjeta" name="metodoPago" [(ngModel)]="metodoPago" />
+            💳 Tarjeta de Crédito/Débito
+          </label>
+
+          <label class="metodo-pago-option">
+            <input
+              type="radio"
+              value="Crédito DePrati"
+              name="metodoPago"
+              [(ngModel)]="metodoPago"
+            />
+            🏪 Crédito DePrati
+          </label>
+
+          <label class="metodo-pago-option">
+            <input type="radio" value="Transferencia" name="metodoPago" [(ngModel)]="metodoPago" />
+            🏦 Transferencia Bancaria
+          </label>
+
+          <label class="metodo-pago-option">
+            <input type="radio" value="Efectivo" name="metodoPago" [(ngModel)]="metodoPago" />
+            💰 Efectivo
+          </label>
+        </div>
+
+        <!-- TARJETA -->
+        <div *ngIf="metodoPago === 'Tarjeta'" class="datos-tarjeta">
+          <input
+            class="form-control"
+            [(ngModel)]="numeroTarjeta"
+            (input)="formatearNumeroTarjeta($event)"
+            placeholder="4242 4242 4242 4242"
+          />
+          <input class="form-control" [(ngModel)]="nombreTitular" placeholder="JUAN PEREZ" />
+
+          <div class="fila-datos">
+            <input
+              class="form-control"
+              [(ngModel)]="fechaExpiracion"
+              (input)="formatearFechaExpiracion($event)"
+              placeholder="MM/AA"
+            />
+            <input class="form-control" [(ngModel)]="cvv" placeholder="CVV" />
+          </div>
+
+          <div class="alert alert-info">💡 Pago simulado – no se realizan cargos reales</div>
+        </div>
+
+        <!-- ================= TRANSFERENCIA BANCARIA (VISUAL) ================= -->
+        <div *ngIf="metodoPago === 'Transferencia'" class="transferencia-box">
+          <!-- PASO 1 -->
+          <div class="transferencia-paso">
+            <span class="paso-numero">1</span>
+            <p>Haz el depósito o transferencia bancaria con los siguientes datos:</p>
+          </div>
+
+          <!-- EMPRESA -->
+          <div class="empresa-box">
+            <strong>DePrati S.A.</strong>
+            <span>RUC: 1790558886001</span>
+          </div>
+
+          <!-- BANCOS -->
+
+          <div class="bancos-grid">
+            <div class="banco-card">
+              <img src="img/BG.png" alt="Banco Guayaquil" />
+              <p class="banco-tipo">Cuenta corriente</p>
+              <p class="banco-cuenta">0006031030</p>
+            </div>
+
+            <div class="banco-card">
+              <img src="img/BPi.png" alt="Banco Pichincha" />
+              <p class="banco-tipo">Cuenta corriente</p>
+              <p class="banco-cuenta">02059000089</p>
+            </div>
+
+            <div class="banco-card">
+              <img src="img/Bps.png" alt="Banco del Pacífico" />
+              <p class="banco-tipo">Cuenta corriente</p>
+              <p class="banco-cuenta">3060074204</p>
+            </div>
+
+            <div class="banco-card">
+              <img src="img/BP.png" alt="Produbanco" />
+              <p class="banco-tipo">Cuenta corriente</p>
+              <p class="banco-cuenta">06188133</p>
+            </div>
+          </div>
+
+          <!-- PASO 2 -->
+          <div class="transferencia-paso">
+            <span class="paso-numero">2</span>
+            <p>Una vez realizado el depósito o transferencia, envía el comprobante por:</p>
+            <ul>
+              <li>📱 WhatsApp: <strong>0994070643</strong></li>
+              <li>📧 Email: <strong>pagos@deprati.com</strong></li>
+            </ul>
+          </div>
+
+          <!-- PASO 3 -->
+          <div class="transferencia-paso">
+            <span class="paso-numero">3</span>
+            <p>Una vez validado el pago, se realizará el envío de tu compra.</p>
+            <small class="nota-simulacion"> Proceso simulado – proyecto universitario </small>
+          </div>
+        </div>
+
+        <!-- OTROS MÉTODOS -->
+        <div *ngIf="metodoPago === 'Crédito DePrati' || metodoPago === 'Efectivo'" class="info-box">
+          <p>El pedido quedará pendiente de confirmación.</p>
+          <small>Proceso simulado</small>
+        </div>
+
+        <div class="acciones-paso">
+          <button class="btn-anterior" (click)="pasoAnterior()">← Volver</button>
+          <button class="btn-siguiente" [disabled]="!validarTarjeta()" (click)="siguientePaso()">
+            Revisar Pedido →
+          </button>
+        </div>
+      </div>
+
+      <!-- ================= PASO 4: CONFIRMACIÓN ================= -->
+      <div *ngIf="pasoActual === 4" class="paso-container">
+        <h3>✅ Confirmar Pedido</h3>
+
+        <p><strong>Cliente:</strong> {{ nombre }} {{ apellidos }}</p>
+        <p><strong>Dirección:</strong> {{ direccionEntrega }}</p>
+        <p><strong>Método de pago:</strong> {{ metodoPago }}</p>
+        <p>
+          <strong>Estado del pago:</strong>
+          {{ estadoPagoVisual }}
+        </p>
+
+        <div class="acciones-paso">
+          <button class="btn-anterior" (click)="pasoAnterior()">← Volver</button>
+          <button class="btn-confirmar" (click)="procesarPedido()" [disabled]="procesandoPago">
+            {{ procesandoPago ? 'Procesando...' : 'Confirmar Pedido' }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- COLUMNA DERECHA (RESUMEN) -->
+    <div class="resumen-columna">
+      <div class="resumen-pedido-card">
+        <h4>Resumen del Pedido</h4>
+
+        <div *ngFor="let producto of productos" class="producto-resumen">
+          <span>{{ producto.nombre }}</span>
+          <span>${{ (producto.precio * producto.cantidad).toFixed(2) }}</span>
+        </div>
+
+        <div class="totales">
+          <div>Subtotal: ${{ getSubtotal().toFixed(2) }}</div>
+          <div>Envío: ${{ getEnvio().toFixed(2) }}</div>
+          <strong>Total: ${{ getTotal().toFixed(2) }}</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

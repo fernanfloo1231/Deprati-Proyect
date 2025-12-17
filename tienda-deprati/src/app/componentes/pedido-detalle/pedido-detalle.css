@@ -1,0 +1,48 @@
+.detalle-container {
+  max-width: 850px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+.titulo {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.fecha {
+  color: #777;
+  margin-bottom: 20px;
+}
+
+.detalle-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.producto {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.producto-info {
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+h3 {
+  margin-top: 15px;
+  color: #d32f2f;
+}
+
+.cargando,
+.error {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 18px;
+}

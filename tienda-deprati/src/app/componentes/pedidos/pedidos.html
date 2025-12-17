@@ -1,0 +1,94 @@
+<!-- En pedidos.html - VERSIÓN COMPLETA -->
+<div class="pedidos-container">
+  <div class="pedidos-header">
+    <h2>📦 Mis Pedidos</h2>
+    <p>Gestiona y rastrea todos tus pedidos</p>
+  </div>
+
+  <!-- ESTADO DE CARGA -->
+  <div *ngIf="loading" class="loading-state">
+    <div class="loading-spinner"></div>
+    <p>Cargando tus pedidos...</p>
+  </div>
+
+  <!-- ERROR -->
+  <div *ngIf="error && !loading" class="error-state">
+    <p>{{ error }}</p>
+    <button (click)="cargarPedidos()" class="btn-reintentar">Reintentar</button>
+  </div>
+
+  <!-- SIN PEDIDOS -->
+  <div *ngIf="!loading && !error && pedidos.length === 0" class="empty-state">
+    <div class="empty-icon">📦</div>
+    <h3>No tienes pedidos aún</h3>
+    <p>Realiza tu primera compra para ver tus pedidos aquí</p>
+    <a routerLink="/home" class="btn-comprar">Comenzar a comprar</a>
+  </div>
+
+  <!-- LISTA DE PEDIDOS -->
+  <div *ngIf="!loading && !error && pedidos.length > 0" class="pedidos-list">
+    <div class="pedidos-count">
+      <strong>{{ pedidos.length }}</strong> pedido(s) encontrado(s)
+    </div>
+
+    <div *ngFor="let pedido of pedidos" class="pedido-card">
+      <div class="pedido-header">
+        <div class="pedido-info">
+          <h3>Pedido #{{ pedido.id_pedido }}</h3>
+          <span class="fecha-pedido">
+            {{ pedido.fecha_pedido | date : 'dd/MM/yyyy HH:mm' }}
+          </span>
+        </div>
+        <div class="pedido-estados">
+          <span class="estado-pedido" [ngClass]="getEstadoClass(pedido.estado)">
+            {{ pedido.estado }}
+          </span>
+          <span
+            class="estado-entrega"
+            [ngClass]="getEstadoEntregaClass(getEstadoEntrega(pedido.id_pedido))"
+          >
+            {{ getEstadoEntrega(pedido.id_pedido) }}
+          </span>
+        </div>
+      </div>
+
+      <div class="pedido-body">
+        <div class="productos-resumen">
+          <strong>{{ getTotalProductos(pedido) }} productos</strong>
+          <span>Total: {{ (pedido.total ? +pedido.total : 0).toFixed(2) }} </span>
+        </div>
+
+        <div class="metodo-pago"><strong>Método de pago:</strong> {{ pedido.metodo_pago }}</div>
+
+        <div class="direccion-entrega">
+          <strong>Dirección:</strong> {{ pedido.direccion_entrega }}
+        </div>
+
+        <!-- INFORMACIÓN DE RASTREO -->
+        <div *ngIf="rastreos[pedido.id_pedido]" class="info-rastreo">
+          <strong>📍 Ubicación actual:</strong>
+          {{ rastreos[pedido.id_pedido].ubicacion_actual }},
+          {{ rastreos[pedido.id_pedido].ciudad }}
+          <br />
+          <small>
+            Actualizado:
+            {{ rastreos[pedido.id_pedido].fecha_actualizacion | date : 'dd/MM/yyyy HH:mm' }}
+          </small>
+        </div>
+      </div>
+
+      <div class="pedido-actions">
+        <button (click)="verDetalles(pedido)" class="btn-detalles">📋 Ver Detalles</button>
+        <button (click)="rastrearPedido(pedido)" class="btn-rastrear">🚚 Rastrear</button>
+        <button
+          *ngIf="pedido.estado === 'Pendiente'"
+          (click)="cancelarPedido(pedido)"
+          class="btn-cancelar"
+        >
+          ❌ Cancelar
+        </button>
+        <button (click)="repetirPedido(pedido)" class="btn-repetir">🔄 Repetir Pedido</button>
+      </div>
+    </div>
+  </div>
+</div>

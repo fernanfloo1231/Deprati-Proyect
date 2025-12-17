@@ -1,0 +1,58 @@
+<form [formGroup]="formulario" (ngSubmit)="enviarFormulario()" class="formulario-pago">
+  <h2>Datos del comprador</h2>
+  <input type="text" formControlName="nombre" placeholder="Nombre completo" />
+  <input type="email" formControlName="email" placeholder="Correo electrónico" />
+  <input type="text" formControlName="telefono" placeholder="Teléfono" />
+
+  <h2>Dirección (solo Ecuador)</h2>
+  <select formControlName="provincia" (change)="onProvinciaChange($event)">
+    <option value="">Seleccione provincia</option>
+    <option *ngFor="let p of provincias" [value]="p">{{ p }}</option>
+  </select>
+
+  <select formControlName="ciudad">
+    <option value="">Seleccione ciudad</option>
+    <option *ngFor="let c of ciudades" [value]="c">{{ c }}</option>
+  </select>
+
+  <input type="text" formControlName="codigoPostal" placeholder="Código postal" />
+  <textarea formControlName="direccionCompleta" placeholder="Dirección completa"></textarea>
+
+  <h2>Método de pago</h2>
+  <select formControlName="metodoPago">
+    <option value="">Seleccione</option>
+    <option value="tarjeta">Tarjeta de crédito o débito</option>
+    <option value="transferencia">Transferencia bancaria</option>
+    <option value="paypal">PayPal</option>
+  </select>
+
+  <!-- 🔹 Campos condicionales según método de pago -->
+  <div *ngIf="formulario.get('metodoPago')?.value === 'tarjeta'">
+    <input
+      type="text"
+      formControlName="tarjetaNumero"
+      placeholder="Número de tarjeta"
+      maxlength="16"
+    />
+    <input
+      type="text"
+      formControlName="tarjetaExp"
+      placeholder="Fecha de expiración (MM/AA)"
+      maxlength="5"
+    />
+    <input type="text" formControlName="tarjetaCvv" placeholder="CVV" maxlength="3" />
+  </div>
+
+  <div *ngIf="formulario.get('metodoPago')?.value === 'transferencia'">
+    <input type="text" formControlName="cuentaBanco" placeholder="Número de cuenta bancaria" />
+  </div>
+
+  <div *ngIf="formulario.get('metodoPago')?.value === 'paypal'">
+    <input type="email" formControlName="paypalEmail" placeholder="Correo asociado a PayPal" />
+  </div>
+
+  <h2>Comentarios</h2>
+  <textarea formControlName="comentarios" placeholder="Opcional"></textarea>
+
+  <button type="submit" class="btn-finalizar">Finalizar compra</button>
+</form>

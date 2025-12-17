@@ -1,0 +1,32 @@
+<div class="chat-container">
+  <!-- Header del chat -->
+  <div class="chat-header">
+    <img src="/img/logo.png" alt="DePrati" class="logo" />
+    <span class="title">Atención DePrati</span>
+  </div>
+
+  <!-- Mensajes -->
+  <div class="messages" #scrollContainer>
+    <div
+      *ngFor="let msg of messages"
+      [class.user]="msg.from === 'user'"
+      [class.bot]="msg.from === 'bot'"
+      class="message"
+    >
+      <span [innerHTML]="msg.text"></span>
+    </div>
+
+    <!-- Botones dinámicos -->
+    <div *ngIf="botones.length > 0" class="categoria-buttons">
+      <button *ngFor="let btn of botones" (click)="accionBoton(btn)" class="btn-categoria">
+        {{ btn.label }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Área de escritura -->
+  <div class="input-area">
+    <input [(ngModel)]="userMessage" placeholder="Escribe un mensaje..." (keyup.enter)="enviar()" />
+    <button (click)="enviar()" class="btn-enviar">Enviar</button>
+  </div>
+</div>
